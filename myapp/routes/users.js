@@ -6,4 +6,10 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-module.exports = router;
+
+router.get('/userslist', function (req, res, next) {
+  result=userModel.readall(function(result){
+    res.render('usersList', { title: 'List des utilisateurs', users:result });
+  });});
+  
+  module.exports = router;
