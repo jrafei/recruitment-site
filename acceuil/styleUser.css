@@ -1,0 +1,134 @@
+/* Couleurs */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+  }
+  
+  /* Styles généraux */
+  body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      color: #333;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+      font-weight: 600;
+      margin-top: 0;
+      margin-bottom: .5rem;
+  }
+  
+  a {
+      color: var(--primary-color);
+      text-decoration: none;
+  }
+  
+  a:hover {
+      color: var(--primary-color);
+      text-decoration: underline;
+  }
+  
+  /* Navbar */
+  .navbar {
+      padding: .5rem 1rem;
+  }
+  
+  .navbar-brand {
+      font-size: 1.5rem;
+      font-weight: 600;
+  }
+  
+  .navbar-nav .nav-item {
+      margin-right: .5rem;
+  }
+  
+  /* Jumbotron */
+  .jumbotron {
+      background-color: #f8f9fa;
+      padding: 4rem 2rem;
+      margin-bottom: 2rem;
+      border-radius: .3rem;
+  }
+  
+  /* Cards */
+  .card {
+      margin-bottom: 1rem;
+  }
+  
+  .card-title {
+      margin-bottom: .5rem;
+  }
+  
+  .card-text {
+      margin-bottom: 1rem;
+  }
+  
+  /* Footer */
+  .footer {
+      background-color: #f8f9fa;
+      padding: 1rem 0;
+      margin-bottom: 0;
+    }
+    
+    /* Formulaires */
+    form {
+        margin-bottom: 1rem;
+    }
+    
+    label {
+        font-weight: 600;
+    }
+    
+    input[type="text"], input[type="email"], input[type="password"], select, textarea {
+        border: 1px solid #ccc;
+        border-radius: .25rem;
+        padding: .5rem;
+        margin-bottom: 1rem;
+    }
+    
+    input[type="submit"] {
+        background-color: var(--primary-color);
+        color: #fff;
+        border: none;
+        border-radius: .25rem;
+        padding: .5rem 1rem;
+        cursor: pointer;
+    }
+    
+    input[type="submit"]:hover {
+        background-color: #0069d9;
+    }
+    
+    /* Section 'Pourquoi nous choisir' */
+    h2 {
+        margin-top: 4rem;
+        margin-bottom: 2rem;
+    }
+    
+    /* Media queries */
+    @media (min-width: 768px) {
+        .container {
+            max-width: 750px;
+        }
+    
+        .jumbotron {
+            padding: 6rem 4rem;
+        }
+    
+        h2 {
+            font-size: 2.5rem;
+        }
+    }
+    
+    @media (min-width: 992px) {
+        .container {
+            max-width: 970px;
+        }
+    }
+    
+    @media (min-width: 1200px) {
+        .container {
+            max-width: 1170px;
+        }
+    }
+    
