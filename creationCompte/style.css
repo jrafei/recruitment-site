@@ -1,0 +1,42 @@
+/* Personnalisation de la couleur de fond */
+body {
+	background-color: #f2f2f2;
+}
+
+/* Personnalisation de la couleur de fond de la carte */
+.card {
+	background-color: #fff;
+}
+
+/* Personnalisation de la couleur de fond du bouton */
+.btn-primary {
+	background-color: #007bff;
+	border-color: #007bff;
+}
+
+/* Personnalisation de la couleur de la police du bouton */
+.btn-primary:hover {
+	background-color: #0069d9;
+	border-color: #0062cc;
+}
+
+/* Personnalisation de la taille de la police des libellés */
+label {
+	font-size: 1.1rem;
+	font-weight: 500;
+}
+
+/* Personnalisation de la taille de la police des champs de saisie */
+.form-control {
+	font-size: 1.1rem;
+}
+
+/* Personnalisation de la taille de la police du bouton */
+.btn-primary {
+	font-size: 1.1rem;
+}
+
+/* Personnalisation de la marge inférieure des champs de saisie */
+.form-group {
+	margin-bottom: 1.5rem;
+}
