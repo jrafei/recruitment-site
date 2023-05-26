@@ -1,0 +1,33 @@
+<body>
+    <h1>
+        <%= title %>
+    </h1>
+    <table border>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>id offre</th>
+                <th>Date candidature</th>
+                <th>Nombre de pièces</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% candidats.forEach((candidat)=> { %>
+                <tr>
+                    <td>
+                        <%= candidat.email %>
+                    </td>
+                    <td>
+                        <%= candidat.idOffre %>
+                    </td>
+                    <td>
+                        <%= candidat.DateCand %>
+                    </td>
+                    <td>
+                        <%= candidat.nbPiece %>
+                    </td>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+</body>
