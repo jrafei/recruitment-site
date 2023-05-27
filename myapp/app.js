@@ -12,6 +12,7 @@ var ficheposteRouter = require('./routes/ficheposte');
 var offreRouter = require('./routes/offres');
 var orgaRouter = require('./routes/organisations');
 var pieceRouter = require('./routes/pieces');
+var inscriptionRouter = require('./routes/inscription');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use('/fichesposte', ficheposteRouter);
 app.use('/offres', offreRouter);
 app.use('/organisations', orgaRouter);
 app.use('/pieces', pieceRouter);
+app.use('/inscription', inscriptionRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

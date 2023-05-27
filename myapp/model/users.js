@@ -51,9 +51,17 @@ module.exports = {
             }
         });
     },
-    creat: function (email, nom, prenom, pwd, type, callback) {
-        //todo
-        return false;
+     creat: function (email, nom, prenom, pwd, tel, type, callback) {
+        sql = "INSERT INTO Users (dateCreation, email, motdepasse, nom, prenom, organisation, premierRecruteur, statut, telephone, type) VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?', '?')";
+        dateCreation = Date.now(),
+        rows = db.query(sql, dateCreation, email, pwd, nom, prenom, NULL, False, True, tel, candidat, function (err, results) {
+            if (err) throw err;
+            if (rows.length == 1 && rows[0].pwd === password) {
+                    callback(true)
+            } else {
+               callback(false); 
+            }
+            })
     }
 }
 
