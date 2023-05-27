@@ -6,8 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { test: 'Express' });
   });
 
-router.get('/inscription', function(req, res, next) {
-  res.render('inscription');
-});
+  router.get('/inscription', function(req, res, next) {
+    res.render('inscription');
+  });
 
 module.exports = router;

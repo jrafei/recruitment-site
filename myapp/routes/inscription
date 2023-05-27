@@ -1,4 +1,5 @@
 var express = require('express');
+var app = express();
 var router = express.Router();
 var userModel = require('../model/users.js');
 app.use(express.urlencoded({ extended: true }));
@@ -18,7 +19,8 @@ router.get('/inscription', function (req, res, next) {
 
 /* POST Inscription Form */
 
-router.post('/inscriptionsend', function (req, res, next) {
+
+router.post('/inscriptionInfos', function (req, res, next) {
   const email = req.body.email
   const nom = req.body.nom;
   const prenom = req.body.prenom;
@@ -26,5 +28,12 @@ router.post('/inscriptionsend', function (req, res, next) {
   const tel = req.body.telephone;
   const type = "candidat";
 
-  res.creat(email, nom, prenom, pwd, tel, type, callback);
+  var t = [];
+  t.append(email);
+
+ // res.creat(email, nom, prenom, pwd, tel, type, callback);
+
+  res.render('inscriptionInfos', { title: 'Formulaire Saisi', infos : t});
   });
+
+  module.exports = router;
