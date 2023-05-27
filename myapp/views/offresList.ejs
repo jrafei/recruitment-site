@@ -1,0 +1,41 @@
+<body>
+    <h1>
+        <%= title %>
+    </h1>
+    <table border>
+        <thead>
+            <tr>
+                <th>Id Offre</th>
+                <th>Etat</th>
+                <th>Date Validité</th>
+                <th>Indication</th>
+                <th>Recruteur</th>
+                <th>Id fiche</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% offres.forEach((offre)=> { %>
+                <tr>
+                    <td>
+                        <%= offre.id %>
+                    </td>
+                    <td>
+                        <%= offre.etat %>
+                    </td>
+                    <td>
+                        <%= offre.dateValidite %>
+                    </td>
+                    <td>
+                        <%= offre.indication %>
+                    </td>
+                    <td>
+                        <%= offre.recruteur %>
+                    </td>
+                    <td>
+                        <%= offre.id_fiche %>
+                    </td>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+</body>

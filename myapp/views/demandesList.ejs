@@ -1,0 +1,33 @@
+<body>
+    <h1>
+        <%= title %>
+    </h1>
+    <table border>
+        <thead>
+            <tr>
+                <th>Reponse</th>
+                <th>Traitement</th>
+                <th>Email de user</th>
+                <th>Organisation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% demandes.forEach((dem)=> { %>
+                <tr>
+                    <td>
+                        <%= dem.reponse %>
+                    </td>
+                    <td>
+                        <%= dem.traitement %>
+                    </td>
+                    <td>
+                        <%= dem.emailusers %>
+                    </td>
+                    <td>
+                        <%= dem.orga %>
+                    </td>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+</body>

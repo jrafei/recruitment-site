@@ -1,0 +1,33 @@
+<body>
+    <h1>
+        <%= title %>
+    </h1>
+    <table border>
+        <thead>
+            <tr>
+                <th>email Candidat</th>
+                <th>id Offre</th>
+                <th>type</th>
+                <th>contenu</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% pieces.forEach((piece)=> { %>
+                <tr>
+                    <td>
+                        <%= piece.emailCand %>
+                    </td>
+                    <td>
+                        <%= piece.idOffre %>
+                    </td>
+                    <td>
+                        <%= piece.type %>
+                    </td>
+                    <td>
+                        <%= piece.contenu %>
+                    </td>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+</body>

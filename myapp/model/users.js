@@ -7,12 +7,39 @@ module.exports = {
             callback(results);
         });
     },
+
+    //read all users
     readall: function (callback) {
         db.query("select * from Users", function (err, results) {
             if (err) throw err;
             callback(results);
         });
     },
+
+    //read all recruiters
+    readallrecruiters: function (callback) {
+        db.query("select * from Users where type='recruteur' ", function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+
+    //read all candidats
+    readallcandidats: function (callback) {
+        db.query("select * from Users where type='candidat' ", function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+
+    //read all admins
+    readalladmins: function (callback) {
+        db.query("select * from Users where type='admin' ", function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+
     areValid: function (email, password, callback) {
         sql = "SELECT motdepasse FROM Users WHERE email = ?";
         rows = db.query(sql, email, function (err, results) {

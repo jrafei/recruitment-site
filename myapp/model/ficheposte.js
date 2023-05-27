@@ -1,12 +1,32 @@
 var db = require('./db.js');
 module.exports = {
+    //afficher le poste d'un id
     read: function (id, callback) {
-        db.query("select * from FichePoste id= ?", id, function
+        db.query("select * from FichePoste where id= ?", id, function
             (err, results) {
             if (err) throw err;
             callback(results);
         });
     },
+
+    //afficher les postes d'une lieu (-> utile lorsque le candidat cherche des postes par lieu) 
+    readbyLieu: function (lieu, callback) {
+        db.query("select * from FichePoste where lieu= ?", lieu, function
+            (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+
+    //afficher les postes d'une typeMetier (-> utile lorsque le candidat cherche des postes par typeMetier) 
+    readbyMetier: function (typeMetier, callback) {
+        db.query("select * from FichePoste where typeMetier= ?", typeMetier, function
+            (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+
     readall: function (callback) {
         db.query("select * from FichePoste", function (err, results) {
             if (err) throw err;
