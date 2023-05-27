@@ -4,7 +4,7 @@ var offreModel = require('../model/offres.js');
 
 /* GET offres listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.send('respond with a resource offre.js');
 });
 
 

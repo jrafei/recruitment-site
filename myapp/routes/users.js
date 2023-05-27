@@ -4,7 +4,7 @@ var userModel = require('../model/users.js');
 
 
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.send('respond with a resource users.js');
 });
 
 /* GET users listing. */
