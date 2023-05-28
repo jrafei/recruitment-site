@@ -11,6 +11,12 @@ router.get('/', function(req, res, next) {
 router.get('/candidatureslist', function (req, res, next) {
   result=candModel.readall(function(result){
     res.render('candidaturesList', { title: 'List des candidats', candidats:result });
-  });});
-  
-  module.exports = router;
+});});
+
+
+router.get('/mesCandidatures', function (req, res, next) {
+  result=candModel.readall(function(result){
+  res.render('mesCandidatures', { title: 'List des candidats', candidats:result });
+});});
+
+module.exports = router;

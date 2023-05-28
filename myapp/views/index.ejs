@@ -1,11 +1,50 @@
+<!-- connexion.html-->
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<head>
+	<title>Connexion - TaffFinder</title>
+	<!-- Load Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<!-- Load Custom Stylesheet -->
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6 col-lg-4">
+				<div class="card my-5">
+					<div class="card-header">
+						<h2 class="text-center">Connexion</h2>
+					</div>
+					<div class="card-body">
+						<form action="/auth" method="post">
+							<div class="form-group">
+								<label for="email">Adresse e-mail</label>
+								<input type="email" class="form-control" id="email" name="email" placeholder="Entrez votre adresse e-mail" required>
+							</div>
+							<div class="form-group">
+								<label for="password">Mot de passe</label>
+								<input type="password" class="form-control" id="password" name="password" placeholder="Entrez votre mot de passe" required>
+							</div>
+							<div class="form-group form-check">
+								<input type="checkbox" class="form-check-input" id="remember">
+								<label class="form-check-label" for="remember">Se souvenir de moi</label>
+							</div>
+							<input type="submit" value="Login">
+						</form>
+						<hr>
+						<p class="text-center">Vous n'avez pas encore de compte ? <a href="/inscription">Inscrivez-vous ici</a>.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Load jQuery, Popper.js, and Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
 </html>
