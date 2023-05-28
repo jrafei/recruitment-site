@@ -1,13 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var ficheModel = require('../model/ficheposte.js');
 const mysql = require('mysql');
 const session = require('express-session');
 const path = require('path');
 
-const app = express();
 
-var pool = mysql.createPool({
+var conn = mysql.createConnection({
   host: "tuxa.sme.utc", //ou localhost
   user: "ai16p054", //"ai16p002",
   password: "89PRl9zx2fnh",//'pzT76bJadOfPduAV',
@@ -38,7 +36,7 @@ router.post('/auth', function(request, response) {
 	// Ensure the input fields exists and are not empty
 	if (email && password) {
 		// Execute SQL query that'll select the account from the database based on the specified username and password
-		pool.query('SELECT * FROM Users WHERE email = ? AND motdepasse = ?', [email, password], function(error, results, fields) {
+		conn.query('SELECT * FROM Users WHERE email = ? AND motdepasse = ?', [email, password], function(error, results, fields) {
 			// If there is an issue with the query, output the error
 			if (error) throw error;
 			// If the account exists
