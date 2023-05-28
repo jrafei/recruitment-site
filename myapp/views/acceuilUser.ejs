@@ -16,16 +16,16 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a class="nav-link" href="../../offres/offres.html">Offres d'emploi</a> <!-- accéder au page des offres-->
+					<a class="nav-link"  href="users/offres">Offres d'emploi</a> <!-- accéder au page des offres-->
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Mes candidatures</a>
+					<a class="nav-link" href="users/mesCandidatures">Mes candidatures</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Devenir Admin</a>
+					<a class="nav-link" href="#" >Devenir Admin</a>
 				</li>
                 <li class="nav-item">
-					<a class="nav-link" href="#">Devenir Recruteur</a>
+					<a class="nav-link" href="users/devenirRecruteur">Devenir Recruteur</a>
 				</li>
 			</ul>
 		</div>
@@ -34,7 +34,7 @@
 	<div class="jumbotron text-center">
 		<h1>Bienvenue sur TaffFinder</h1>
 		<p>Nous aidons les entreprises à trouver les meilleurs talents.</p>
-		<a href="../../offres/offres.html" class="btn btn-primary">Consulter les offres d'emploi</a>
+		<a href="users/offres" class="btn btn-primary">Consulter les offres d'emploi</a>
 	</div>
 
 	<div class="container">
@@ -43,21 +43,17 @@
 			<div class="col-md-4">
 				<div class="card">
 					<div class="card-body">
-
-
-                        
-						<h5 class="card-title">Développeur web</h5>
-						<p class="card-text">Nous recherchons un développeur web pour rejoindre notre équipe. Vous travaillerez sur des projets passionnants et innovants.</p>
-						
-                        <a href="#" class="btn btn-primary">Postuler</a>
+						<h5 class="card-title"><%= fiches[fiches.length -1 ].intitulé %></h5>	
+						<p class="card-text"><%= fiches[fiches.length -1 ].description %></p>
+						<a href="#" class="btn btn-primary">Postuler</a>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title">Ingénieur en informatique</h5>
-						<p class="card-text">Nous recherchons un ingénieur en informatique pour travailler sur nos projets de développement de logiciels. Si vous êtes passionné par les technologies et les logiciels, rejoignez notre équipe.</p>
+						<h5 class="card-title"><%= fiches[fiches.length -2 ].intitulé %></h5>	
+						<p class="card-text"><%= fiches[fiches.length -2 ].description %></p>
 						<a href="#" class="btn btn-primary">Postuler</a>
 					</div>
 				</div>
@@ -65,8 +61,8 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Spécialiste en marketing digital</h5>
-                        <p class="card-text">Nous recherchons un spécialiste en marketing digital pour gérer nos campagnes publicitaires en ligne et optimiser notre présence sur les réseaux sociaux.</p>
+                        <h5 class="card-title"><%= fiches[fiches.length -3 ].intitulé %></h5>	
+						<p class="card-text"><%= fiches[fiches.length -3 ].description %></p>
                         <a href="#" class="btn btn-primary">Postuler</a>
                     </div>
                 </div>

@@ -1,12 +1,28 @@
 var express = require('express');
 var router = express.Router();
 var userModel = require('../model/users.js');
-
+var offresModel = require('../model/offres.js');
+var ficheModel = require('../model/ficheposte.js');
+var candModel = require('../model/candidature.js');
 
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource users.js');
+  result=ficheModel.readall(function(result){
+  res.render('acceuilUser', { title: 'List des fiches de poste', fiches:result });
+  });});
+
+/*afficher les candidatures de l'utilisateur*/ /*pas fini ! il faut avoir l'id de l'utilisateur*/
+router.get('/mesCandidatures', function (req, res, next) {
+  result=candModel.readall(function(result){
+    res.render('mesCandidatures', { title: 'List des candidats', candidats:result });
+});});
+
+
+router.get('/devenirRecruteur', function (req, res, next) {
+  res.render('devenirRecruteur');
 });
 
+
+/*
 /* GET users listing. */
 router.get('/userslist', function (req, res, next) {
   result=userModel.readall(function(result){

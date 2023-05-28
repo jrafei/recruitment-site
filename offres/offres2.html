@@ -37,7 +37,7 @@
 		</div>
 	</nav>
 
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-3">
 				<div class="filters">
@@ -67,53 +67,63 @@
 							<option value="">Tous</option>
 							<option value="paris">Paris</option>
 							<option value="marseille">Marseille</option>
-							<option value="lyon">Lyon</option>
-							<option value="toulouse">Toulouse</option>
-						</select>
+								<option value="lyon">Lyon</option>
+								<option value="toulouse">Toulouse</option>
+							</select>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-md-9">
-				<div class="options">
-					<h5>Options de tri</h5>
-					<div class="form-group">
-						<label for="sort-by">Trier par</label>
-						<select class="form-control" id="sort-by">
-							<option value="date">Date de publication</option>
-							<option value="distance">Distance</option>
-						</select>
+				<div class="col-md-9">
+					<div class="options">
+						<h5>Options de tri</h5>
+						<div class="form-group">
+							<label for="sort-by">Trier par</label>
+							<select class="form-control" id="sort-by">
+								<option value="date">Date de publication</option>
+								<option value="distance">Distance</option>
+							</select>
+						</div>
 					</div>
-				</div>
-				<div class="job-listings">
-					<h2>Offres d'emploi</h2>
-					<div class="job">
-						<h4>Développeur web</h4>
-						<p>Type de métier : Développeur</p>
-						<p>Salaire : 40,000€ - 60,000€</p>
-						<p>Lieu : Paris</p>
-						<a href="#" class="btn btn-primary">Postuler</a>
-					</div>
-					<div class="job">
-						<h4>Ingénieur logiciel</h4>
-						<p>Type de métier : Ingénieur</p>
-						<p>Salaire : 60,000€ et plus</p>
-						<p>Lieu : Lyon</p>
-						<a href="#" class="btn btn-primary">Postuler</a>
-					</div>
-					<!-- Ajoutez d'autres offres d'emploi ici -->
+					<div class="job-listings">
+                        <h2>Offres d'emploi</h2>
+                        <% offres.forEach((offre)=> { %>
+                        <div class="job">
+                            
+                            <h4><%= offre.intitulé %></h4>
+                            <p>Type : <%= offre.typeMetier %></p>
+                            <p>Rythme : <%= offre.rythme %></p>
+                            <p>Salaire : <%= offre.salaire %></p>
+                            <p>Date de Validité : <%= offre.dateValidite %></p>
+                            <p>Descrition : <%= offre.description %></p>
+                            <p>Indication : <%= offre.indication %></p>
+                            <p>Responsable : <%= offre.RespHierarchique %></p>
+        
+                            <a href="#" class="btn btn-primary">Postuler</a>
+                        </div>
+                        <% }) %>
+                        <!--
+                        <div class="job">
+                            <h4>Ingénieur logiciel</h4>
+                            <p>Type de métier : Ingénieur</p>
+                            <p>Salaire : 60,000€ et plus</p>
+                            <p>Lieu : Lyon</p>
+                            <a href="#" class="btn btn-primary">Postuler</a>
+                        </div>
+                        -->
+                        <!-- Ajoutez d'autres offres d'emploi ici -->
+                    </div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<footer class="footer">
+		<footer class="footer">
 			<div class="container">
 				<p>Site de recrutement &copy; 2023. Tous droits réservés.</p>
 			</div>
-	</footer>
+		</footer>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	</body>
 </html>
