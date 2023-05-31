@@ -33,6 +33,15 @@ module.exports = {
             callback(results);
         });
     },
+
+    readOffreFiche: function (callback) {
+        db.query("select fp.*, of.*,org.nom from Offres of join FichePoste fp on of.id_fiche = fp.id join Users u on u.email = of.recruteur join Organisation org on org.SIREN = u.organisation ", function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+
+
     // areValid: function (email, password, callback) {
     //     sql = "SELECT motdepasse FROM Users WHERE email = ?";
     //     rows = db.query(sql, email, function (err, results) {

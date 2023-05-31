@@ -1,5 +1,15 @@
 var db = require('./db.js');
 module.exports = {
+
+    //affiher les type de metiers de notre base de données
+    readTypeMetier: function (callback) {
+        db.query("select distinct fp.typeMétier from FichePoste fp", function
+            (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+
     //afficher le poste d'un id
     read: function (id, callback) {
         db.query("select * from FichePoste where id= ?", id, function
@@ -49,4 +59,5 @@ module.exports = {
     //     return false;
     // }
 }
+
 

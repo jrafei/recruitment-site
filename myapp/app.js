@@ -28,6 +28,7 @@ app.use(express.static(__dirname + '../public'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/users/offres', offreRouter);
 app.use('/candidatures', candidatureRouter);
 app.use('/demandes', demandeRouter);
 app.use('/fichesposte', ficheposteRouter);
