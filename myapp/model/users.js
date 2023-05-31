@@ -51,9 +51,16 @@ module.exports = {
             }
         });
     },
-    creat: function (email, nom, prenom, pwd, type, callback) {
-        //todo
-        return false;
+     creat: function (email, nom, prenom, pwd, tel, type, callback) {
+        sql = "INSERT INTO Users (dateCreation, email, motdepasse, nom, prenom, organisation, premierRecruteur, statut, telephone, type) VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?', '?')";
+        dateCreation = Date.now();
+        console.log(dateCreation, email, pwd, nom, prenom);
+        var userToInsert = [dateCreation, email, pwd, nom, prenom, 'NULL', 'False', 'True', tel, 'candidat'];
+        console.log(userToInsert);
+        rows = db.query(sql, [dateCreation, email, pwd, nom, prenom, 'NULL', 'False', 'True', tel, 'candidat'] , function (err, results) {
+            if (err) throw err;
+            callback(results);
+            })  
     }
 }
 
