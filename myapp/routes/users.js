@@ -4,6 +4,8 @@ var userModel = require('../model/users.js');
 var offresModel = require('../model/offres.js');
 var ficheModel = require('../model/ficheposte.js');
 var candModel = require('../model/candidature.js');
+var orgaModel = require('../model/organisations.js');
+
 
 router.get('/', function(req, res, next) {
   result=ficheModel.readall(function(result){

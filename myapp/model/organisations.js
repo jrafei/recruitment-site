@@ -13,20 +13,13 @@ module.exports = {
             callback(results);
         });
     },
-    // areValid: function (email, password, callback) {
-    //     sql = "SELECT motdepasse FROM Users WHERE email = ?";
-    //     rows = db.query(sql, email, function (err, results) {
-    //         if (err) throw err;
-    //         if (rows.length == 1 && rows[0].pwd === password) {
-    //             callback(true)
-    //         } else {
-    //             callback(false);
-    //         }
-    //     });
-    // },
-    // creat: function (email, nom, prenom, pwd, type, callback) {
-    //     //todo
-    //     return false;
-    // }
+
+    readallvalid: function (callback) {
+        db.query("select * from Organisation o JOIN Demandes d on d.orga = o.SIREN WHERE d.reponse = 1 ", function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+    
 }
 

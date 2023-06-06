@@ -29,18 +29,12 @@ router.post('/inscriptionInfos', function (req, res, next) {
   const tel = req.body.tel;
   const type = "candidat";
 
-  var test = [];
-  test.push(email,nom,prenom,pwd,tel,type);
-  
-  //console.log(test);
-
   sql = "INSERT INTO Users (dateCreation, email, motdepasse, nom, prenom, telephone, type) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
    const timeElapsed = Date.now();
    const dateCreation = new Date(timeElapsed);
   
   var userToInsert = [dateCreation, email, pwd, nom, prenom, tel, 'candidat'];
-  console.log(userToInsert);
 
   rows = db.query(sql, userToInsert , function (err, results) {
           if (err) throw err;
