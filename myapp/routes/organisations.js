@@ -30,7 +30,7 @@ router.get('/organisationslist', function (req, res, next) {
     
       sql = "INSERT INTO Demandes (orga, emailusers) VALUES (?, ?)";
       
-      var DemandToInsert = [siren, req.session.type];
+      var DemandToInsert = [siren, req.session.username];
     
       rows = db.query(sql, DemandToInsert , function (err, results) {
               if (err) throw err;
