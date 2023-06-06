@@ -14,28 +14,30 @@
 			<div class="col-md-6">
 				<div class="card">
 					<div class="card-header">
-						<h4>Devenir Recruteur</h4>
+						<h4>Ajouter mon entreprise</h4>
 					</div>
 					<div class="card-body">
-						<form>
+						<form id="AjoutOrga" action="/organisations/addorga" method="POST">
 							<div class="form-group">
-								<label for="nom">Nom Organisation:</label>
-								<input type="text" class="form-control" id="nom" placeholder="Entrez le nom de votre organisation">
+								<label for="nom">Nom de l'organisation:</label>
+								<input type="text" class="form-control" name="nom" placeholder="Entrez le nom de votre organisation">
 							</div>
 							<div class="form-group">
 								<label for="siren">SIREN :</label>
-								<input type="text" class="form-control" id="siren" placeholder="Entrez le SIREN">
+								<input type="text" class="form-control" name="siren" placeholder="Entrez le SIREN">
 							</div>
 							<div class="form-group">
-								<label for="type">Numéro de Téléphone :</label>
-								<input type="text" class="form-control" id="type" placeholder="Entrez le type de votre organisation">
+								<label for="type">Type de l'organisation :</label>
+								<input type="text" class="form-control" name="type" placeholder="Entrez le type de votre organisation">
 							</div>
 							<div class="form-group">
 								<label for="siege">Siege Social</label>
-								<input type="text" class="form-control" id="siege" placeholder="Entrez le siege de votre organisation">
+								<input type="text" class="form-control" name="siege" placeholder="Entrez le siege de votre organisation">
 							</div>
-							<a type="submit" class="btn btn-primary" href = "/users">Devenir Recruteur</a>
+							<button type="submit" class="btn btn-primary"> Ajouter mon entreprise </button>
 						</form>
+						<a class="nav-link" href="joinorga"> Votre entreprise existe déjà ? Demandez à la rejoindre </a>
+
 					</div>
 				</div>
 			</div>
