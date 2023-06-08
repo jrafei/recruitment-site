@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const mysql = require('mysql');
-const session = require('express-session');
+var session= require('../session');
 const path = require('path');
 
 
@@ -13,11 +13,6 @@ var conn = mysql.createConnection({
   database: "ai16p054"//"ai16p002"
 });
 
-router.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: true
-}));
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 router.use(express.static(path.join(__dirname, 'static')));
@@ -43,11 +38,9 @@ router.post('/auth', function(request, response) {
 			// If the account exists
 			if (results.length > 0) {
 				// Authenticate the user
-				request.session.loggedin = true;
-				request.session.username = email;
-				request.session.type = results[0].type;
+				session.creatSession(request.session, email, results[0].type);
 				// Redirect to home page
-				response.redirect('/home');
+				response.redirect('/users');
 			} else {
 				response.send('Incorrect Username and/or Password!');
 			}			
