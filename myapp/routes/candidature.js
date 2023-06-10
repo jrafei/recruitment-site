@@ -15,7 +15,7 @@ router.get('/candidatureslist', function (req, res, next) {
 
 
 router.get('/mesCandidatures', function (req, res, next) {
-  result=candModel.readall(function(result){
+  result=candModel.readallbyemail(req.session.userid,function(result){
   res.render('mesCandidatures', { title: 'List des candidats', candidats:result });
 });});
 

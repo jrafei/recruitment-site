@@ -25,7 +25,8 @@
 					<div class="card-body">
 						<h5 class="card-title"><%= fiches[fiches.length -1 ].intitulé %></h5>	
 						<p class="card-text"><%= fiches[fiches.length -1 ].description %></p>
-						<a href="#" class="btn btn-primary">Postuler</a>
+						<a href="http://localhost:3000/upload?idFiche=<%=fiches[fiches.length -1 ].id %>?intitule=<%=fiches[fiches.length -1 ].intitulé %>?
+                            " class="btn btn-primary">Postuler</a>
 					</div>
 				</div>
 			</div>
@@ -34,7 +35,8 @@
 					<div class="card-body">
 						<h5 class="card-title"><%= fiches[fiches.length -2 ].intitulé %></h5>	
 						<p class="card-text"><%= fiches[fiches.length -2 ].description %></p>
-						<a href="#" class="btn btn-primary">Postuler</a>
+						<<a href="http://localhost:3000/upload?idFiche=<%=fiches[fiches.length -2 ].id %>?intitule=<%=fiches[fiches.length -2 ].intitulé %>?
+                            " class="btn btn-primary">Postuler</a>
 					</div>
 				</div>
 			</div>
@@ -43,7 +45,8 @@
                     <div class="card-body">
                         <h5 class="card-title"><%= fiches[fiches.length -3 ].intitulé %></h5>	
 						<p class="card-text"><%= fiches[fiches.length -3 ].description %></p>
-                        <a href="#" class="btn btn-primary">Postuler</a>
+                        <a href="http://localhost:3000/upload?idFiche=<%=fiches[fiches.length -3 ].id %>?intitule=<%=fiches[fiches.length -3 ].intitulé %>?
+                            " class="btn btn-primary">Postuler</a>
                     </div>
                 </div>
             </div>
