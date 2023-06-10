@@ -3,6 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session');
+var passport = require('passport');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -13,6 +16,7 @@ var offreRouter = require('./routes/offres');
 var orgaRouter = require('./routes/organisations');
 var pieceRouter = require('./routes/pieces');
 var inscriptionRouter = require('./routes/inscription');
+var uploadRouter = require('./routes/upload');
 
 var app = express();
 
@@ -36,7 +40,7 @@ app.use('/offres', offreRouter);
 app.use('/organisations', orgaRouter);
 app.use('/pieces', pieceRouter);
 app.use('/inscription', inscriptionRouter);
-
+app.use('/upload', uploadRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

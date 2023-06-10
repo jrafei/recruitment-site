@@ -44,8 +44,11 @@ router.post('/auth', function(request, response) {
 			if (results.length > 0) {
 				// Authenticate the user
 				request.session.loggedin = true;
-				request.session.username = email;
+				request.session.email = email;
 				request.session.type = results[0].type;
+				request.session.prenom = results[0].prenom;
+				console.log(session.prenom)
+				request.session.nom = results[0].nom;
 				// Redirect to home page
 				response.redirect('/home');
 			} else {

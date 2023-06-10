@@ -12,17 +12,15 @@ router.get('/', function(req, res, next) {
   res.render('acceuilUser', { title: 'List des fiches de poste', fiches:result });
   });});
 
-/*afficher les candidatures de l'utilisateur*/ /*pas fini ! il faut avoir l'id de l'utilisateur*/
 router.get('/mesCandidatures', function (req, res, next) {
-  result=candModel.readall(function(result){
-    res.render('mesCandidatures', { title: 'List des candidats', candidats:result });
+   result=candModel.readallbyemail(req.session.email,function(result){
+  res.render('mesCandidatures', { title: 'List des candidats', candidatures:result });
 });});
 
 
 router.get('/devenirRecruteur', function (req, res, next) {
   res.render('devenirRecruteur');
 });
-
 
 /*
 /* GET users listing. */
@@ -48,5 +46,15 @@ router.get('/adminslist', function (req, res, next) {
   result=userModel.readalladmins(function(result){
     res.render('adminsList', { title: 'List des administrateurs', admins:result });
   });});
+
+/*Get upload page 
+router.get('/upload',function(req, res, next) {
+  console.log(req.query.idFiche);
+  //res.redirect('fiche_upload',{idFiche: req.query.idFiche, intitule: req.query.intitule, email: req.session.email,prenom: req.session.prenom });
+  const idFiche = req.query.idFiche;
+  const idIntitule = req.query.intitule;
+  res.redirect('/upload?idFiche=${idFiche}&intitule=${idIntitule}')
+});
+*/
   
 module.exports = router;
