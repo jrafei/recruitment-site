@@ -9,11 +9,11 @@ var orgaModel = require('../model/organisations.js');
 
 router.get('/', function(req, res, next) {
   result=ficheModel.readall(function(result){
-  res.render('acceuilUser', { title: 'List des fiches de poste', fiches:result });
+  res.render('accueilUser', { title: 'List des fiches de poste', fiches:result });
   });});
 
 router.get('/mesCandidatures', function (req, res, next) {
-   result=candModel.readallbyemail(req.session.email,function(result){
+   result=candModel.readallbyemail(req.session.userid,function(result){
   res.render('mesCandidatures', { title: 'List des candidats', candidatures:result });
 });});
 
@@ -50,7 +50,7 @@ router.get('/adminslist', function (req, res, next) {
 /*Get upload page 
 router.get('/upload',function(req, res, next) {
   console.log(req.query.idFiche);
-  //res.redirect('fiche_upload',{idFiche: req.query.idFiche, intitule: req.query.intitule, email: req.session.email,prenom: req.session.prenom });
+  //res.redirect('fiche_upload',{idFiche: req.query.idFiche, intitule: req.query.intitule, email: req.session.userid,prenom: req.session.prenom });
   const idFiche = req.query.idFiche;
   const idIntitule = req.query.intitule;
   res.redirect('/upload?idFiche=${idFiche}&intitule=${idIntitule}')

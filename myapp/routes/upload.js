@@ -20,18 +20,23 @@ var upload = multer({ storage: my_storage })
 
 /* GET */
 router.get('/', function(req, res, next) {
-  if (req.session.email == undefined) {
-    console.log('Init connected user');
-    //req.session.connected_user = {prenom : 'Jana', login : 'Rafei'};
-    res.render('index');
-  }
-  if (req.session.uploaded_files == undefined) {
-    console.log('Init uploaded files array');
-    req.session.uploaded_files = [];
-  }
-  console.log(req.session.prenom);
-  //console.log(req.session.email);
-  res.render('file_upload',{prenom: req.session.prenom, idFiche: req.query.idFiche, email : req.session.email, files_array : req.session.uploaded_files});
+  //Test pour savoir si user a déjà postulé à l'offre
+  candModel.readbyEmailIdFiche(req.session.userid,req.query.idFiche,function(result){
+    //s'il a déjà postuler à l'offre-> envoie une erreur
+    if(result.length !== 0) res.status(403).render("error", { message: " Vous avez déjà postulé à cette offre !", error: {} });
+    //sinon on ajoute une candidature 
+    if (req.session.userid == undefined) {
+      console.log('Init connected user');
+      //req.session.connected_user = {prenom : 'Jana', login : 'Rafei'};
+      res.render('index');
+    }
+    if (req.session.uploaded_files == undefined) {
+      console.log('Init uploaded files array');
+      req.session.uploaded_files = [];
+    }
+    console.log(req.session.prenom);
+    res.render('file_upload',{prenom: req.session.prenom, idFiche: req.query.idFiche, email : req.session.userid, files_array : req.session.uploaded_files});
+  })
 });
 
 
@@ -42,13 +47,13 @@ router.post('/', upload.single('myFileInput') ,function(req, res, next) {
   //console.log("req.file = ",req.file);
 
   if (!uploaded_file) {
-    res.render('file_upload',{email : req.session.email, files_array : req.session.uploaded_files, upload_error : 'Merci de sélectionner le fichier à charger !'});
+    res.render('file_upload',{email : req.session.userid, files_array : req.session.uploaded_files, upload_error : 'Merci de sélectionner le fichier à charger !'});
   } else {
     console.log(uploaded_file.originalname,' => ',uploaded_file.filename);
     req.session.uploaded_files.push(uploaded_file.filename);
     nbPiece = nbPiece +1;
     
-    email = req.session.email;
+    email = req.session.userid;
     idFiche = req.query.idFiche;
     //console.log("id de la fiche =",idFiche);
     //on cherche l'id de l'offre depuis l'id de fiche de post
@@ -57,7 +62,7 @@ router.post('/', upload.single('myFileInput') ,function(req, res, next) {
         DateCand = new Date();
         nbPiece = 1;
         var candToInsert = [email, idOffre, DateCand, nbPiece];
-        //res.render('file_upload',{nbPiece: nbPiece, email : req.session.email, prenom : req.session.prenom, files_array : req.session.uploaded_files, uploaded_filename : uploaded_file.filename, uploaded_original:uploaded_file.originalname});
+        //res.render('file_upload',{nbPiece: nbPiece, email : req.session.userid, prenom : req.session.prenom, files_array : req.session.uploaded_files, uploaded_filename : uploaded_file.filename, uploaded_original:uploaded_file.originalname});
         addCandidature(req,res,candToInsert,uploaded_file);
     })
     }
@@ -75,7 +80,7 @@ const addCandidature = (req,res,candToInsert,uploaded_file) => {
                 db.query(sql, candToInsert , function (err, results) {
                     if(err) throw err
                     console.log("insertion done !");
-                    res.render('file_upload',{nbPiece: nbPiece, email : req.session.email, prenom : req.session.prenom, files_array : req.session.uploaded_files, uploaded_filename : uploaded_file.filename, uploaded_original:uploaded_file.originalname});
+                    res.render('file_upload',{nbPiece: nbPiece, email : req.session.userid, prenom : req.session.prenom, files_array : req.session.uploaded_files, uploaded_filename : uploaded_file.filename, uploaded_original:uploaded_file.originalname});
                 });
         }
         else{ //Candidature existe -> on incrémente le nb de piece
@@ -84,7 +89,7 @@ const addCandidature = (req,res,candToInsert,uploaded_file) => {
             db.query(sql, [candToInsert[1] ,candToInsert[0]], function (err, results) {
                 if (err) throw err;
                 console.log("nbPiece incrémenté! ");
-                res.render('file_upload',{nbPiece: nbPiece, email : req.session.email, prenom : req.session.prenom, files_array : req.session.uploaded_files, uploaded_filename : uploaded_file.filename, uploaded_original:uploaded_file.originalname});
+                res.render('file_upload',{nbPiece: nbPiece, email : req.session.userid, prenom : req.session.prenom, files_array : req.session.uploaded_files, uploaded_filename : uploaded_file.filename, uploaded_original:uploaded_file.originalname});
         });
     }
 });

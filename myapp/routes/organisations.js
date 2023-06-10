@@ -30,11 +30,11 @@ router.get('/organisationslist', function (req, res, next) {
     
       sql = "INSERT INTO Demandes (orga, emailusers) VALUES (?, ?)";
       
-      var DemandToInsert = [siren, req.session.username];
+      var DemandToInsert = [siren, req.session.userid];
     
       rows = db.query(sql, DemandToInsert , function (err, results) {
               if (err) throw err;
-                    res.render('orgasList', { title: 'Votre demande d\'ajout a été réalisée avec succès', orgas : DemandToInsert});
+                    res.render('display', { message: 'Votre demande d\'ajout a été réalisée avec succès'});
              
           });   
       });
@@ -54,8 +54,8 @@ router.get('/organisationslist', function (req, res, next) {
     rows = db.query(sql, orgaToInsert , function (err, results) {
             if (err) throw err;
             sql = "INSERT INTO Demandes (emailusers, orga) VALUES (?, ?)";
-            rows = db.query(sql, [req.session.username, nom] , function (err, results) {
-                  res.render('orgasList', { title: 'Votre demande d\'ajout a été réalisée avec succès', infos : orgaToInsert});
+            rows = db.query(sql, [req.session.userid, nom] , function (err, results) {
+              res.render('display', { message: 'Votre demande d\'ajout a été réalisée avec succès'});
             });
         });   
     });

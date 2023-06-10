@@ -26,6 +26,13 @@ module.exports = {
             callback(results);
         });
     },
+
+    readbyEmailIdFiche: function(email,idFiche,callback){
+        db.query("select * from Candidature c, Offres of where of.id=c.idOffre and email = ? and id_fiche = ?",[email,idFiche], function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    }
     // areValid: function (email, password, callback) {
     //     sql = "SELECT motdepasse FROM Users WHERE email = ?";
     //     rows = db.query(sql, email, function (err, results) {
