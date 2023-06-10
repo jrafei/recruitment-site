@@ -9,7 +9,7 @@ var orgaModel = require('../model/organisations.js');
 
 router.get('/', function(req, res, next) {
   result=ficheModel.readall(function(result){
-  res.render('acceuilUser', { title: 'List des fiches de poste', fiches:result });
+  res.render('accueilUser', { title: 'List des fiches de poste', fiches:result });
   });});
 
 /*afficher les candidatures de l'utilisateur*/ /*pas fini ! il faut avoir l'id de l'utilisateur*/

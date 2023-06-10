@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session=require('./session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -15,7 +16,7 @@ var pieceRouter = require('./routes/pieces');
 var inscriptionRouter = require('./routes/inscription');
 
 var app = express();
-
+app.use(session.init());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -26,7 +27,32 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(__dirname + '../public'));
 
+
 app.use('/', indexRouter);
+
+
+// check user
+app.all("*", function (req, res, next) {
+  const nonSecurePaths = ["/inscription", "/"];
+  const adminPaths = ["/users/userslist"]; //list des urls admin
+  const recruteurPaths = [""]; //list des urls admin
+  if (nonSecurePaths.includes(req.path)) return next();
+
+  //authenticate user
+  if ( adminPaths.includes(req.path)) {
+    if (session.isConnected(req.session, "admin")) return next();
+    else res.status(403).render("error", { message: " Unauthorized access", error: {} });
+  } 
+  else if ( recruteurPaths.includes(req.path)) {
+    if (session.isConnected(req.session, "recuteur")) return next();
+    else res.status(403).render("error", { message: " Unauthorized access", error: {} });
+  } else {
+    if (session.isConnected(req.session)) return next();
+    // non authentifié
+    else res.redirect("/");
+  }
+});
+
 app.use('/users', usersRouter);
 app.use('/users/offres', offreRouter);
 app.use('/candidatures', candidatureRouter);
