@@ -4,7 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session=require('./session');
-var passport = require('passport');
 
 
 var indexRouter = require('./routes/index');
@@ -37,7 +36,7 @@ app.use('/', indexRouter);
 // check user
 app.all("*", function (req, res, next) {
   const nonSecurePaths = ["/inscription", "/"];
-  const adminPaths = ["/users/userslist"]; //list des urls admin
+  const adminPaths = ["/users/userslist","/organisations/adminorga","/organisations/setadminorga"]; //list des urls admin
   const recruteurPaths = [""]; //list des urls admin
   if (nonSecurePaths.includes(req.path)) return next();
 
