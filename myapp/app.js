@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session=require('./session');
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var candidatureRouter = require('./routes/candidature');
@@ -14,6 +15,7 @@ var offreRouter = require('./routes/offres');
 var orgaRouter = require('./routes/organisations');
 var pieceRouter = require('./routes/pieces');
 var inscriptionRouter = require('./routes/inscription');
+var uploadRouter = require('./routes/upload');
 var recruteurRouter = require('./routes/recruteur');
 
 var app = express();
@@ -35,7 +37,7 @@ app.use('/', indexRouter);
 // check user
 app.all("*", function (req, res, next) {
   const nonSecurePaths = ["/inscription", "/"];
-  const adminPaths = [""]; //list des urls admin
+  const adminPaths = ["","/organisations/adminorga","/organisations/setadminorga"]; //list des urls admin
   const recruteurPaths = ["/recruteur/style.css"]; //list des urls recruteur
   console.log("path ",req.path);
   if (nonSecurePaths.includes(req.path)) return next();
@@ -71,7 +73,7 @@ app.use('/organisations', orgaRouter);
 app.use('/pieces', pieceRouter);
 app.use('/inscription', inscriptionRouter);
 app.use('/recruteur',recruteurRouter);
-
+app.use('/upload', uploadRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

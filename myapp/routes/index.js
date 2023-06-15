@@ -38,7 +38,7 @@ router.post('/auth', function(request, response) {
 			// If the account exists
 			if (results.length > 0) {
 				// Authenticate the user
-				session.creatSession(request.session, email, results[0].type);
+				session.creatSession(request.session, email, results[0].type, results[0].prenom, results[0].nom);
 				// Redirect to home page
 				if (results[0].type === 'candidat'){
 					console.log("c'est un candidat");

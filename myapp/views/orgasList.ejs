@@ -12,10 +12,12 @@
                 <th>nom</th>
                 <th>type</th>
                 <th>Siege Social</th>
-                <th>approuve</th>
+                <th>Accepter</th>
+                <th>Refuser</th>
             </tr>
         </thead>
         <tbody>
+         <form id="AdminOrga" action="/organisations/setadminorga" method="POST">
             <% orgas.forEach((orga)=> { %>
                 <tr>
                     <td>
@@ -31,10 +33,16 @@
                         <%= orga.siegeSocial %>
                     </td>
                     <td>
-                        <%= orga.approuve %>
+                        <input type="submit" name="accepter" value="<%= orga.SIREN %>,<%= orga.emailusers%>"> 
                     </td>
+                    <td>
+                        <input type="submit" name="rejeter" value="<%= orga.SIREN%>,<%= orga.emailusers%>"> 
+                    </td>
+
                 </tr>
                 <% }) %>
+
+         </form>
         </tbody>
     </table>
 </body>

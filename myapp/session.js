@@ -8,9 +8,11 @@ module.exports = {
       resave: false,
     });
   },
-  creatSession: function (session, mail, role) {
+  creatSession: function (session, mail, role,prenom,nom) {
     session.userid = mail;
     session.role = role;
+    session.prenom = prenom;
+    session.nom = nom;
     session.save(function (err) {
       console.log(err);
     });
