@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var offresModel = require('../model/offres.js');
+var candModel = require('../model/candidature.js');
 /*
 var userModel = require('../model/offres.js');
 var offresModel = require('../model/offres.js');
@@ -17,10 +18,15 @@ router.get('/', function(req, res, next) {
 router.get('/mesOffres', function(req,res,next){
     console.log(req.session.userid)
     offresModel.readbyRecruteur(req.session.userid,function(result){
-    console.log(result)
     res.render('mesOffres',{offres: result});
 })
 });
+
+router.get('/candidats', function(req,res){
+    candModel.readbyOffre(req.query.idOffre,function(result){
+    res.render('candidats',{candidats: result})
+  })
+})
 
 
 

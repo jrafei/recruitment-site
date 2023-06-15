@@ -38,12 +38,12 @@
 							<p>Date de Publication : <%= offre.datePublication %></p>
                             <p>Rythme : <%= offre.rythme %></p>
                             <p>Salaire : <%= offre.salaire %></p>
+                            <p>Etat : <%= offre.etat %></p>
                             <p>Date de Validité : <%= offre.dateValidite %></p>
                             <p>Descrition : <%= offre.description %></p>
                             <p>Indication : <%= offre.indication %></p>
                             <p>Responsable : <%= offre.RespHierarchique %></p>
-        
-                            <a href="http://localhost:3000/recruteur/candidats" class="btn btn-primary">Consulter les candidatures</a>
+                            <a href="http://localhost:3000/recruteur/candidats?idOffre=<%=offre.id%>" class="btn btn-primary">Consulter les candidatures</a>
                         </div>
                         <% }) %>
                         <!--

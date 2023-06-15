@@ -38,7 +38,7 @@ app.use('/', indexRouter);
 app.all("*", function (req, res, next) {
   const nonSecurePaths = ["/inscription", "/"];
   const adminPaths = ["","/organisations/adminorga","/organisations/setadminorga"]; //list des urls admin
-  const recruteurPaths = ["/recruteur/style.css"]; //list des urls recruteur
+  const recruteurPaths = ["","/recruteur/style.css"]; //list des urls recruteur
   console.log("path ",req.path);
   if (nonSecurePaths.includes(req.path)) return next();
 
@@ -49,13 +49,13 @@ app.all("*", function (req, res, next) {
   } 
   else if ( recruteurPaths.includes(req.path)) {
     if (session.isConnected(req.session, "recruteur")) {
-      console.log("ici2");
+      //console.log("ici2");
       return next();
     }
     else res.status(403).render("error", { message: " Unauthorized access", error: {} });
   } else {
     if (session.isConnected(req.session)){
-      console.log("ici3");
+      //console.log("ici3");
       return next();
     } 
     // non authentifié

@@ -55,6 +55,7 @@ module.exports = {
         });
     },
 
+
     // areValid: function (email, password, callback) {
     //     sql = "SELECT motdepasse FROM Users WHERE email = ?";
     //     rows = db.query(sql, email, function (err, results) {

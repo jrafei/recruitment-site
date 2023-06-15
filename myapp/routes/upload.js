@@ -44,7 +44,7 @@ router.get('/', function(req, res, next) {
 var nbPiece = 0;
 router.post('/', upload.single('myFileInput') ,function(req, res, next) {
   const uploaded_file = req.file;
-  //console.log("req.file = ",req.file);
+  console.log("req.file = ",req.file);
 
   if (!uploaded_file) {
     res.render('file_upload',{email : req.session.userid, files_array : req.session.uploaded_files, upload_error : 'Merci de sélectionner le fichier à charger !'});

@@ -32,7 +32,13 @@ module.exports = {
             if (err) throw err;
             callback(results);
         });
-    }
+    },
+    readbyOffre: function(idOffre,callback){
+        db.query("select * from Candidature c, Users u where c.email = u.email and c.idOffre=?",[idOffre], function(err,results){
+            if (err) throw err;
+            callback(results);
+        });
+    },
     // areValid: function (email, password, callback) {
     //     sql = "SELECT motdepasse FROM Users WHERE email = ?";
     //     rows = db.query(sql, email, function (err, results) {
