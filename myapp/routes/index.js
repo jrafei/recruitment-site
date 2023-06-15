@@ -40,7 +40,18 @@ router.post('/auth', function(request, response) {
 				// Authenticate the user
 				session.creatSession(request.session, email, results[0].type);
 				// Redirect to home page
-				response.redirect('/users');
+				if (results[0].type === 'candidat'){
+					console.log("c'est un candidat");
+					response.redirect('/users');
+				}
+				if (results[0].type === 'recruteur'){
+					console.log("c'est un recruteur");
+					response.redirect('/recruteur');
+				} 
+				if(results[0].type === 'admin') {
+					console.log("c'est un admin");
+					response.redirect('/admin');
+				}
 			} else {
 				response.send('Incorrect Username and/or Password!');
 			}			

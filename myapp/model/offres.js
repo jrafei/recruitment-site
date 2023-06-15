@@ -41,6 +41,12 @@ module.exports = {
         });
     },
 
+    readbyRecruteur: function(email,callback){
+        db.query("select fp.*, of.* from Offres of , FichePoste fp where of.id_fiche = fp.id and of.recruteur =?", [email],function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
 
     // areValid: function (email, password, callback) {
     //     sql = "SELECT motdepasse FROM Users WHERE email = ?";
