@@ -2,14 +2,15 @@ var express = require('express');
 var router = express.Router();
 var offreModel = require('../model/offres.js');
 var ficheposteModel = require('../model/ficheposte.js');
+var db = require('../model/db.js');
 
 /* GET offres listing. */
-router.get('/offreslist', function (req, res, next) {
-  result=offreModel.readall(function(result){
-    res.render('offresList', { title: 'List des offres', offres : result });
+router.get('/', function (req, res, next) {
+  result=offreModel.readOffreFiche(function(result){
+    res.render('offres', { title: 'List des offres', offres : result });
   });});
 
-/*Get offres emplois */
+/*Get offres emplois 
 router.get('/', function (req, res, next) {
   result=offreModel.readOffreFiche(function(result){
     // Récupération de la valeur de tri sélectionnée dans le formulaire
@@ -25,7 +26,46 @@ router.get('/', function (req, res, next) {
     // Rendu de la page des offres avec les données des offres triées
 	  res.render('offres', { offres: result });
   });});
+
   
+router.get('/', (req, res,next) => {
+  const recherche = req.query.recherche;
+  
+  if (recherche){
+    const query = "SELECT * FROM FichePoste WHERE intitulé LIKE '%" + recherche + "%'";
+    
+    db.query(query, (error, results) => {
+      if (error) {
+        console.error('Erreur lors de l\'exécution de la requête :', error);
+        res.status(500).send('Erreur lors de la récupération des données');
+      } else {
+        //results = tri_date(req,res,next);
+        res.render('offres', { offres: results });
+      }
+    });
+  }
+  else {
+    offreModel.readOffreFiche(function(result){
+       res.render('offres', { offres: result });
+  }
+});
+
+function tri_date(req,res,next){
+    const tri = req.query.sort;
+    // Tri des offres par date de publication
+    if (tri === 'date') {
+      result.sort((a, b) => {
+        const dateA = new Date(a.datePublication);
+        const dateB = new Date(b.datePublication);
+        return dateB - dateA; // Tri décroissant par date de publication
+      });
+  }
+  console.log(res);
+  return res;
+}
+
+*/
+
 module.exports = router;
 
 /*

@@ -4,7 +4,7 @@ module.exports = {
     return sessions({
       secret: "oeoeoejavoufautchanger",
       saveUninitialized: true,
-      cookie: { maxAge: 600 * 1000 }, // 10 minutes
+      cookie: { maxAge: 600 * 100000 }, // 10 minutes
       resave: false,
     });
   },

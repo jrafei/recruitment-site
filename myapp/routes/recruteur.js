@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var offresModel = require('../model/offres.js');
 var candModel = require('../model/candidature.js');
+
 /*
 var userModel = require('../model/offres.js');
 var offresModel = require('../model/offres.js');
