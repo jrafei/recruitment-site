@@ -28,11 +28,13 @@ module.exports = {
         });
     },
 
-    readalluserswaitingforvalidation: function (callback, result) {     
-        db.query("select o.SIREN from Demands d Join Users on d.emailusers = request.session.userid Join Organisation o ON d.orga = o.SIREN;", function (err, results) {
+    readalluserswaitingforvalidation: function (req,callback, result) {     
+        console.log(req.session.userid)
+        db.query("select organisation from Users WHERE email = ? AND premierRecruteur = 1;",[req.session.userid], function (err, results) {
+            console.log("Passage OK")
             if (err) throw err;
-            var siren = result[0];
-            db.query("select * from DemandesJoin WHERE d.traitement = 0 and d.orga =  ?;", [siren], function (err, results) {
+            var siren = results[0].organisation;
+            db.query("select * from DemandesJoin WHERE traitement = 0 and orga =  ?;", [siren], function (err, results) {
                 if (err) throw err;
                 callback(results);
             });

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,41 +18,29 @@
     <table border>
         <thead>
             <tr>
-                <th>SIREN</th>
-                <th>nom</th>
-                <th>type</th>
-                <th>Siege Social</th>
+                <th>Email de user</th>
                 <th>Accepter</th>
                 <th>Refuser</th>
             </tr>
         </thead>
+
         <tbody>
-         <form id="AdminOrga" action="/organisations/setadminorga" method="POST">
-            <% orgas.forEach((orga)=> { %>
+            <form id="AdminOrga" action="/organisations/setrecruteurorga" method="POST">
+
+            <% demandes.forEach((dem)=> { %>
                 <tr>
                     <td>
-                        <%= orga.SIREN %>
+                        <%= dem.emailusers %>
                     </td>
                     <td>
-                        <%= orga.nom %>
+                        <input type="submit" name="accepter" value="<%= dem.orga %>,<%= dem.emailusers%>"> 
                     </td>
                     <td>
-                        <%= orga.type %>
+                        <input type="submit" name="rejeter" value="<%= dem.orga %>,<%= dem.emailusers%>"> 
                     </td>
-                    <td>
-                        <%= orga.siegeSocial %>
-                    </td>
-                    <td>
-                        <input type="submit" name="accepter" value="<%= orga.SIREN %>,<%= orga.emailusers%>"> 
-                    </td>
-                    <td>
-                        <input type="submit" name="rejeter" value="<%= orga.SIREN%>,<%= orga.emailusers%>"> 
-                    </td>
-
                 </tr>
                 <% }) %>
-
-         </form>
+            </form>
         </tbody>
     </table>
 </body>

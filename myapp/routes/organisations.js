@@ -111,22 +111,27 @@ router.get('/organisationslist', function (req, res, next) {
 
 
         router.get('/recruteurorga', function (req, res, next) {
-          result=userModel.readalluserswaitingforvalidation(function(result){
-            res.render('demandesList', { title: 'Liste des utilisateurs demandant à rejoindre votre organisation', users:result });
+          result=userModel.readalluserswaitingforvalidation(req,function(result){
+            res.render('demandesJoin', { title: 'Liste des utilisateurs demandant à rejoindre votre organisation', demandes:result });
           });});
 
 
           router.post('/setrecruteurorga', function (req, res, next) {
         
+            var req = req;
+
             if (req.body.accepter) {
-              var siren = req.body.accepter;
-              sql = "UPDATE DemandesJoin SET traitement = 1, reponse = 1 WHERE orga = ?";
-              rows = db.query(sql, [siren], function (err, results) {
+            var rep = req.body.accepter.split(',');
+            var siren = rep[0];
+            var user = rep[1];
+              sql = "UPDATE DemandesJoin SET traitement = 1, reponse = 1 WHERE emailusers = ? AND orga = ?";
+              rows = db.query(sql, [user, siren], function (req, err, results) {
                 if (err) throw err;
-                sql = "UPDATE Users type = 'recruteur' WHERE orga = ?";
-                rows = db.query(sql, [siren], function (err, results) {
-                  result = userModel.readallwaitingforvalidation(function(result) {
-                    res.render('orgasList', { title: 'Liste des organisations', orgas: result });
+                sql = "UPDATE Users type = 'recruteur' WHERE email = ?";
+                rows = db.query(sql, [user], function (req, err, results) {
+                  if (err) throw err;
+                  results=userModel.readalluserswaitingforvalidation(req,function(result){
+                    res.render('demandesJoin', { title: 'Liste des utilisateurs demandant à rejoindre votre organisation', demandes:result });
                   });
                 });
               });
@@ -134,19 +139,17 @@ router.get('/organisationslist', function (req, res, next) {
             
     
             if (req.body.rejeter) {
-              var siren = req.body.rejeter;
-              sql = "UPDATE Demandes SET traitement = 1, reponse = 0 WHERE orga = ?";
-              rows = db.query(sql, [siren] , function (err, results) {
-                      if (err) throw err;
-                      sql = "DELETE FROM 'Organisation' WHERE 'orga' = '?'";
-                      rows = db.query(sql, [siren] , function (err, results) {
-                        result=userModel.readallwaitingforvalidation(function(result){
-                          res.render('orgasList', { title: 'Liste des organisations', orgas:result });                  
-                        });
-                  });   
+              var rep = req.body.rejeter.split(',');
+              var siren = rep[0];
+              var user = rep[1];
+              sql = "UPDATE DemandesJoin SET traitement = 1, reponse = 0 WHERE emailusers = ? AND orga = ?";
+              rows = db.query(sql, [user, siren] , function (req, err, results) {
+                      if (err) console.log(sql);
+                      results=userModel.readalluserswaitingforvalidation(req,function(result){
+                        res.render('demandesJoin', { title: 'Liste des utilisateurs demandant à rejoindre votre organisation', demandes:result });          
+                        });   
                });
             }
-           
-            });
+           });
 
   module.exports = router;

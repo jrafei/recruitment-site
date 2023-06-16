@@ -36,8 +36,8 @@ app.use('/', indexRouter);
 // check user
 app.all("*", function (req, res, next) {
   const nonSecurePaths = ["/inscription", "/"];
-  const adminPaths = ["/users/userslist","/organisations/adminorga","/organisations/setadminorga"]; //list des urls admin
-  const recruteurPaths = [""]; //list des urls admin
+  const adminPaths = ["/users/userslist","/organisations/adminorga","/organisations/setadminorga","/organisations/recruteurorga"]; //list des urls admin
+  const recruteurPaths = ["/organisations/recruteurorga"]; //list des urls recruteur
   if (nonSecurePaths.includes(req.path)) return next();
 
   //authenticate user
