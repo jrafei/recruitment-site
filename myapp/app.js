@@ -16,6 +16,7 @@ var orgaRouter = require('./routes/organisations');
 var pieceRouter = require('./routes/pieces');
 var inscriptionRouter = require('./routes/inscription');
 var uploadRouter = require('./routes/upload');
+var recruteurRouter = require('./routes/recruteur');
 
 var app = express();
 app.use(session.init());
@@ -27,7 +28,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(__dirname + '../public'));
+app.use(express.static(__dirname + '/public/stylesheets'));
 
 
 app.use('/', indexRouter);
@@ -36,20 +37,27 @@ app.use('/', indexRouter);
 // check user
 app.all("*", function (req, res, next) {
   const nonSecurePaths = ["/inscription", "/"];
-  const adminPaths = ["/users/userslist","/organisations/adminorga","/organisations/setadminorga"]; //list des urls admin
-  const recruteurPaths = [""]; //list des urls admin
+  const adminPaths = ["","/organisations/adminorga","/organisations/setadminorga"]; //list des urls admin
+  const recruteurPaths = ["","/recruteur/style.css"]; //list des urls recruteur
+  console.log("path ",req.path);
   if (nonSecurePaths.includes(req.path)) return next();
 
   //authenticate user
   if ( adminPaths.includes(req.path)) {
-    if (session.isConnected(req.session, "admin")) return next();
+    if (session.isConnected(req.session, "admin")) return next()
     else res.status(403).render("error", { message: " Unauthorized access", error: {} });
   } 
   else if ( recruteurPaths.includes(req.path)) {
-    if (session.isConnected(req.session, "recuteur")) return next();
+    if (session.isConnected(req.session, "recruteur")) {
+      //console.log("ici2");
+      return next();
+    }
     else res.status(403).render("error", { message: " Unauthorized access", error: {} });
   } else {
-    if (session.isConnected(req.session)) return next();
+    if (session.isConnected(req.session)){
+      //console.log("ici3");
+      return next();
+    } 
     // non authentifié
     else res.redirect("/");
   }
@@ -64,6 +72,7 @@ app.use('/offres', offreRouter);
 app.use('/organisations', orgaRouter);
 app.use('/pieces', pieceRouter);
 app.use('/inscription', inscriptionRouter);
+app.use('/recruteur',recruteurRouter);
 app.use('/upload', uploadRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

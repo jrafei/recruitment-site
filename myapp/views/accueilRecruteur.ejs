@@ -5,53 +5,33 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="./public/stylesheets/style.css">
 </head>
 <body>
-
-	<%- include('nav.ejs') %>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<h4 >TaffFinder</h4>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="http://localhost:3000/recruteur/mesOffres">Gestion de mes offres</a>
+				</li>
+                <li class="nav-item">
+					<a class="nav-link" href="http://localhost:3000/recruteur/demandeRejoindre">Gestion des recruteurs</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
 
 	<div class="jumbotron text-center">
 		<h1>Bienvenue sur TaffFinder</h1>
 		<p>Nous aidons les entreprises à trouver les meilleurs talents.</p>
-		<a href="http://localhost:3000/users/offres" class="btn btn-primary">Consulter les offres d'emploi</a>
+		<a href="http://localhost:3000/recruteur/mesOffres" class="btn btn-primary">Consulter vos offres d'emploi</a>
 	</div>
 
-	<div class="container">
-		<h2>Dernières offres d'emploi</h2>
-		<div class="row">
-			<div class="col-md-4">
-				<div class="card">
-					<div class="card-body">
-						<h5 class="card-title"><%= fiches[fiches.length -1 ].intitulé %></h5>	
-						<p class="card-text"><%= fiches[fiches.length -1 ].description %></p>
-						<a href="http://localhost:3000/upload?idFiche=<%=fiches[fiches.length -1 ].id %>?intitule=<%=fiches[fiches.length -1 ].intitulé %>?
-                            " class="btn btn-primary">Postuler</a>
-					</div>
-				</div>
-			</div>
-		    <div class="col-md-4">
-				<div class="card">
-					<div class="card-body">
-						<h5 class="card-title"><%= fiches[fiches.length -2 ].intitulé %></h5>	
-						<p class="card-text"><%= fiches[fiches.length -2 ].description %></p>
-						<<a href="http://localhost:3000/upload?idFiche=<%=fiches[fiches.length -2 ].id %>?intitule=<%=fiches[fiches.length -2 ].intitulé %>?
-                            " class="btn btn-primary">Postuler</a>
-					</div>
-				</div>
-		    </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><%= fiches[fiches.length -3 ].intitulé %></h5>	
-						<p class="card-text"><%= fiches[fiches.length -3 ].description %></p>
-                        <a href="http://localhost:3000/upload?idFiche=<%=fiches[fiches.length -3 ].id %>?intitule=<%=fiches[fiches.length -3 ].intitulé %>?
-                            " class="btn btn-primary">Postuler</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
+            <div class="container">
                 <h2>Pourquoi nous choisir</h2>
                 <div class="row">
                     <div class="col-md-4">
@@ -67,7 +47,7 @@
                         <p>Nous nous engageons à fournir des services de qualité et à satisfaire les besoins de nos clients et de nos candidats.</p>
                     </div>
                 </div>
-        </div>
+            </div>
             
             <footer class="footer">
                 <div class="container">
