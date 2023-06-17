@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TaffFinder - Offres</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+	
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <h4 >TaffFinder</h4>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link"  href="http://localhost:3000/recruteur"> Accueil</a> 
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  href="http://localhost:3000/recruteur/gestionRecruteurs">Gestion recruteurs</a> <!-- accéder au page des offres-->
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3">
+					<div class="job-listings">
+						<h2>Offres d'emploi</h2>
+                        <% offres.forEach((offre)=> { %>
+                        <div class="job">
+                            <h4><%= offre.intitulé %></h4>
+                            <p>Type : <%= offre.typeMétier %></p>
+							<p>Date de Publication : <%= offre.datePublication %></p>
+                            <p>Rythme : <%= offre.rythme %></p>
+                            <p>Salaire : <%= offre.salaire %></p>
+                            <p>Etat : <%= offre.etat %></p>
+                            <p>Date de Validité : <%= offre.dateValidite %></p>
+                            <p>Descrition : <%= offre.description %></p>
+                            <p>Indication : <%= offre.indication %></p>
+                            <p>Responsable : <%= offre.RespHierarchique %></p>
+                            <a href="http://localhost:3000/recruteur/candidats?idOffre=<%=offre.id%>" class="btn btn-primary">Consulter les candidatures</a>
+                        </div>
+                        <% }) %>
+                        <!--
+                        <div class="job">
+                            <h4>Ingénieur logiciel</h4>
+                            <p>Type de métier : Ingénieur</p>
+                            <p>Salaire : 60,000€ et plus</p>
+                            <p>Lieu : Lyon</p>
+                            <a href="#" class="btn btn-primary">Postuler</a>
+                        </div>
+                        -->
+                        <!-- Ajoutez d'autres offres d'emploi ici -->
+                    </div>
+				</div>
+			</div>
+		</div>
+
+		<footer class="footer">
+			<div class="container">
+				<p>TaffFinder &copy; 2023. Tous droits réservés.</p>
+			</div>
+		</footer>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	</body>
+</html>
