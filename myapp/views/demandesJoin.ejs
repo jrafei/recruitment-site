@@ -33,10 +33,14 @@
                         <%= dem.emailusers %>
                     </td>
                     <td>
-                        <input type="submit" name="accepter" value="<%= dem.orga %>,<%= dem.emailusers%>"> 
-                    </td>
+                        <input type="submit" name="accepter" value="Accepter">
+                         <input type="hidden" name="emailA" value="<%= dem.emailusers%>">
+                         <input type="hidden" name="sirenA" value="<%= dem.orga %>">
+                        </td>
                     <td>
-                        <input type="submit" name="rejeter" value="<%= dem.orga %>,<%= dem.emailusers%>"> 
+                        <input type="submit" name="rejeter" value="Rejeter"> 
+                        <input type="hidden" name="emailR" value="<%= dem.emailusers%>">
+                        <input type="hidden" name="sirenR" value="<%= dem.orga %>">
                     </td>
                 </tr>
                 <% }) %>

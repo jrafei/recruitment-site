@@ -11,7 +11,7 @@
 
 <body>
 
-    <%- include('nav.ejs') %>
+    <%- include('navAdmin.ejs') %>
 
 <h1>
     <%= title %>
@@ -85,7 +85,8 @@
                         </select>
                     </td>
                     <td>
-                        <input type="submit" name="supprimer" value="<%= user.email %>"> 
+                        <input type="submit" name="supprimer" value="Supprimer">
+                        <input type="hidden" name="emailToDelete" value="<%= user.email %>">
                     </td>
                     <td>
                         <input type="submit" name="modifier" value="Modifier"> 

@@ -28,8 +28,51 @@
             </tr>
         </thead>
         <tbody>
-         <form id="AdminOrga" action="/organisations/setadminorga" method="POST">
             <% orgas.forEach((orga)=> { %>
+                <tr>
+                    <form id="AdminOrga" action="/organisations/setadminorga" method="POST">
+                    <td>
+                        <%= orga.SIREN %>
+                    </td>
+                    <td>
+                        <%= orga.nom %>
+                    </td>
+                    <td>
+                        <%= orga.type %>
+                    </td>
+                    <td>
+                        <%= orga.siegeSocial %>
+                    </td>
+                    <td>
+                        <input type="submit" name="accepter" value="Accepter">
+                        <input type="hidden" name="emailA" value="<%= orga.emailusers %>">
+                        <input type="hidden" name="sirenA" value="<%= orga.SIREN %>"> 
+                    </td>
+                    <td>
+                        <input type="submit" name="rejeter" value="Rejeter"> 
+                        <input type="hidden" name="emailR" value="<%= orga.emailusers %>">
+                        <input type="hidden" name="sirenR" value="<%= orga.SIREN %>">
+
+                    </td>
+                </form>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+
+
+    <table border>
+        <thead>
+            <tr>
+                <th>SIREN</th>
+                <th>nom</th>
+                <th>type</th>
+                <th>Siege Social</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% treated.forEach((orga)=> { %>
                 <tr>
                     <td>
                         <%= orga.SIREN %>
@@ -44,16 +87,16 @@
                         <%= orga.siegeSocial %>
                     </td>
                     <td>
-                        <input type="submit" name="accepter" value="<%= orga.SIREN %>,<%= orga.emailusers%>"> 
+                        <% if (orga.reponse == 1) { %>
+                            Acceptée
+                        <% } else { %>
+                            Refusée
+                        <% } %>
                     </td>
-                    <td>
-                        <input type="submit" name="rejeter" value="<%= orga.SIREN%>,<%= orga.emailusers%>"> 
-                    </td>
-
                 </tr>
                 <% }) %>
-
-         </form>
         </tbody>
     </table>
+
+
 </body>

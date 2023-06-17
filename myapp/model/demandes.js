@@ -32,5 +32,12 @@ module.exports = {
             callback(results);
         });
     },
+
+    readAdmin: function (callback) {
+        db.query("select * from DemandesAdmin where traitement = 0", function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
 }
 

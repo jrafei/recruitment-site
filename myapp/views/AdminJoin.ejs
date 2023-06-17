@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Liste des Utilisateurs</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Liens vers les stylesheets -->
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+    <%- include('navAdmin.ejs') %>
+
+        <h1>
+            <%= title %>
+        </h1>
+        <table border>
+            <thead>
+                <tr>
+                    <th>Email de l'utilisateur</th>
+                    <th>Accepter</th>
+                    <th>Refuser</th>
+                </tr>
+            </thead>
+            <tbody>
+                <form id="AdminOrga" action="/admin/setadminjoin" method="POST">
+                    <% users.forEach((user)=> { %>
+                        <tr>
+                            <td>
+                                <%= user.emailusers %>
+                            </td>
+                            <td>
+                                <input type="submit" name="accepter" value="Accepter">
+                                <input type="hidden" name="emailA" value="<%= user.emailusers %>">
+
+                            </td>
+                            <td>
+                                <input type="submit" name="rejeter" value="Rejeter">
+                                <input type="hidden" name="emailR" value="<%= user.emailusers %>">
+                            </td>
+                        </tr>
+                        <% }) %>
+
+                </form>
+            </tbody>
+        </table>
+</body>

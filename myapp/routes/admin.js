@@ -3,21 +3,21 @@ var router = express.Router();
 var userModel = require('../model/users.js');
 var offresModel = require('../model/offres.js');
 var ficheModel = require('../model/ficheposte.js');
-var candModel = require('../model/candidature.js');
+var demandesModel = require('../model/demandes.js');
 var orgaModel = require('../model/organisations.js');
 var db = require('../model/db.js');
-var sess =require('../session.js');
+var sess = require('../session.js');
 
 /* GET users listing. */
 
 router.get('/', function (req, res, next) {
     result = ficheModel.readall(function (result) {
-      res.render('accueilUser', { title: 'List des fiches de poste', fiches: result });
+        res.render('accueilUser', { title: 'List des fiches de poste', fiches: result });
     });
-  });
+});
 
 
-  router.get('/userslist', function (req, res, next) {
+router.get('/userslist', function (req, res, next) {
     userModel.readall(function (result) {
         orgaModel.readall(function (org) {
             res.render('usersList', { title: 'Liste des utilisateurs', users: result, orgas: org });
@@ -26,9 +26,8 @@ router.get('/', function (req, res, next) {
 });
 
 
-
 router.post('/setuser', function (req, res, next) {
-    
+
     if (req.body.modifier) {
         const nom = req.body.nom;
         const prenom = req.body.prenom;
@@ -65,20 +64,58 @@ router.post('/setuser', function (req, res, next) {
     }
 
 
-    
-    if (req.body.supprimer){
+
+    if (req.body.supprimer) {
         sql = "DELETE FROM Users WHERE email = ?";
-        rows = db.query(sql, [req.body.supprimer] , function (err, results) {
+        rows = db.query(sql, [req.body.emailToDelete], function (err, results) {
             if (err) throw err;
             userModel.readall(function (result) {
                 orgaModel.readall(function (org) {
                     res.render('usersList', { title: 'Liste des utilisateurs', users: result, orgas: org });
                 });
-            }); 
-        });   
+            });
+        });
     }
 
+});
+
+
+
+router.get('/adminjoin', function (req, res, next) {
+    demandesModel.readAdmin(function (result) {
+        res.render('AdminJoin', { title: 'Liste des utilisateurs demandant à devenir Admin', users: result });
     });
+});
+
+router.post('/setadminjoin', function (req, res, next) {
+
+    if (req.body.accepter) {
+        var user = req.body.emailA
+        sql = "UPDATE DemandesAdmin SET traitement = 1, reponse = 1 WHERE emailusers = ?";
+        rows = db.query(sql, [user], function (err, results) {
+            if (err) throw err;
+            demandesModel.readAdmin(function (result) {
+                res.render('AdminJoin', { title: 'Liste des utilisateurs demandant à devenir Admin', users: result });
+            });
+        });
+
+    }
+
+    if (req.body.accepter) {
+        var user = req.body.emailR
+        sql = "UPDATE DemandesAdmin SET traitement = 1, reponse = 0 WHERE emailusers = ?";
+        rows = db.query(sql, [user], function (err, results) {
+            if (err) throw err;
+            demandesModel.readAdmin(function (result) {
+                res.render('AdminJoin', { title: 'Liste des utilisateurs demandant à devenir Admin', users: result });
+            });
+        });
+    }
 
 
-    module.exports = router;
+});
+
+
+
+
+module.exports = router;
