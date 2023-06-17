@@ -39,22 +39,20 @@ app.use('/', indexRouter);
 // check user
 app.all("*", function (req, res, next) {
   const nonSecurePaths = ["/inscription", "/"];
-  const adminPaths = ["","/organisations/adminorga","/organisations/setadminorga"]; //list des urls admin
-  const recruteurPaths = ["","/recruteur/style.css"]; //list des urls recruteur
-  console.log("path ",req.path);
+  const adminPaths = ["/users/userslist","/organisations/adminorga","/organisations/setadminorga","/organisations/recruteurorga"]; //list des urls admin
+  const recruteurPaths = ["/organisations/recruteurorga","/recruteur/style.css"]; //list des urls recruteur
   if (nonSecurePaths.includes(req.path)) return next();
 
   //authenticate user
   if ( adminPaths.includes(req.path)) {
-    if (session.isConnected(req.session, "admin")) return next()
-    else res.status(403).render("error", { message: " Unauthorized access", error: {} });
+
+    if (session.isConnected(req.session, "admin")) return next();
+    else res.status(403).render("display", { message: " Unauthorized access", error: {} });
   } 
   else if ( recruteurPaths.includes(req.path)) {
-    if (session.isConnected(req.session, "recruteur")) {
-      //console.log("ici2");
-      return next();
-    }
-    else res.status(403).render("error", { message: " Unauthorized access", error: {} });
+    if (session.isConnected(req.session, "recuteur")) return next();
+    else res.status(403).render("display", { message: " Unauthorized access", error: {} });
+
   } else {
     if (session.isConnected(req.session)){
       //console.log("ici3");
