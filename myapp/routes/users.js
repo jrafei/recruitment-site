@@ -6,6 +6,7 @@ var ficheModel = require('../model/ficheposte.js');
 var candModel = require('../model/candidature.js');
 var orgaModel = require('../model/organisations.js');
 var db = require('../model/db.js');
+var sess =require('../session.js');
 
 
 
@@ -78,8 +79,7 @@ router.post('/askforadmin', function (req, res, next) {
 });
 
 router.post('/logout', function (req, res, next) {
-  deleteSession(req.session);
-  console.log("test")
+  sess.deleteSession(req.session);
 });
 
 

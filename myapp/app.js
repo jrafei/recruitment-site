@@ -43,11 +43,11 @@ app.all("*", function (req, res, next) {
   //authenticate user
   if ( adminPaths.includes(req.path)) {
     if (session.isConnected(req.session, "admin")) return next();
-    else res.status(403).render("error", { message: " Unauthorized access", error: {} });
+    else res.status(403).render("display", { message: " Unauthorized access", error: {} });
   } 
   else if ( recruteurPaths.includes(req.path)) {
     if (session.isConnected(req.session, "recuteur")) return next();
-    else res.status(403).render("error", { message: " Unauthorized access", error: {} });
+    else res.status(403).render("display", { message: " Unauthorized access", error: {} });
   } else {
     if (session.isConnected(req.session)) return next();
     // non authentifié

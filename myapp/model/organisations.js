@@ -29,9 +29,7 @@ module.exports = {
     },
 
     readalluserswaitingforvalidation: function (req,callback, result) {     
-        console.log(req.session.userid)
         db.query("select organisation from Users WHERE email = ? AND premierRecruteur = 1;",[req.session.userid], function (err, results) {
-            console.log("Passage OK")
             if (err) throw err;
             var siren = results[0].organisation;
             db.query("select * from DemandesJoin WHERE traitement = 0 and orga =  ?;", [siren], function (err, results) {
