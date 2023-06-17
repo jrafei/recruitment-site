@@ -1,29 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Liste des Utilisateurs</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Liens vers les stylesheets -->
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
 <body>
-    <h1>
-        <%= title %>
-    </h1>
-    <table border>
-        <thead>
+
+    <%- include('nav.ejs') %>
+
+<h1>
+    <%= title %>
+</h1>
+<table border>
+    <thead>
+        <tr>
+            <th>Email Utilisateur</th>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Téléphone</th>
+            <th>Statut</th>
+            <th>Organisation</th>
+            <th>Type</th>
+            <th>Supprimer</th>
+            <th>Modifier</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% users.forEach((user) => { %>
             <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% users.forEach((user)=> { %>
-                <tr>
-                    <td>
-                        <%= user.prenom %>
-                    </td>
-                    <td>
-                        <%= user.nom %>
-                    </td>
+                <form id="AdminUsers" action="/admin/setuser" method="POST">
                     <td>
                         <%= user.email %>
                     </td>
-                </tr>
-                <% }) %>
-        </tbody>
-    </table>
+                    <td>
+                        <%= user.prenom %>
+                        <input type="text" name="prenom" placeholder="Modifier le prénom"> 
+                    </td>
+                    <td>
+                        <%= user.nom %>
+                        <input type="text" name="nom" placeholder="Modifier le nom"> 
+                    </td>
+                    <td>
+                        <%= user.telephone %>
+                        <input type="text" name="tel" placeholder="Modifier le numéro de téléphone"> 
+                    </td>
+                    <td>
+                        <%= user.statut %>
+                        <select class="form-control" name="statut">
+                            <option value="Actif">
+                                Actif
+                            </option>
+                            <option value="Inactif">
+                                Inactif
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        <%= user.organisation %>
+                        <select class="form-control" name="siren">
+                            <% orgas.forEach((orga) => { %>
+                            <option value="<%= orga.SIREN %>">
+                                <%= orga.nom %>
+                            </option>
+                            <% }) %>
+                        </select>
+                    </td>
+                    <td>
+                        <%= user.type %>
+                        <select class="form-control" name="type">
+                            <option value="admin">
+                                Administrateur
+                            </option>
+                            <option value="recruteur">
+                                Recruteur
+                            </option>
+                            <option value="candidat">
+                                Candidat
+                            </option>     
+                        </select>
+                    </td>
+                    <td>
+                        <input type="submit" name="supprimer" value="<%= user.email %>"> 
+                    </td>
+                    <td>
+                        <input type="submit" name="modifier" value="Modifier"> 
+                        <input type="hidden" name="email" value="<%= user.email %>">
+                    </td>
+                </form>
+            </tr>
+        <% }) %>
+        
+        
+    </tbody>
+</table>
 </body>

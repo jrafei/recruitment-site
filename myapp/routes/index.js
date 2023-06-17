@@ -50,7 +50,7 @@ router.post('/auth', function(request, response) {
 				} 
 				if(results[0].type === 'admin') {
 					console.log("c'est un admin");
-					response.redirect('/admin');
+					response.redirect('admin/userslist');
 				}
 			} else {
 				response.send('Incorrect Username and/or Password!');

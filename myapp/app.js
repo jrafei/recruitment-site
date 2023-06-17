@@ -17,6 +17,8 @@ var pieceRouter = require('./routes/pieces');
 var inscriptionRouter = require('./routes/inscription');
 var uploadRouter = require('./routes/upload');
 var recruteurRouter = require('./routes/recruteur');
+var adminRouter = require('./routes/admin');
+
 
 var app = express();
 
@@ -74,6 +76,9 @@ app.use('/pieces', pieceRouter);
 app.use('/inscription', inscriptionRouter);
 app.use('/recruteur',recruteurRouter);
 app.use('/upload', uploadRouter);
+app.use('/admin', adminRouter);
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

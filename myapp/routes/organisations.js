@@ -129,8 +129,8 @@ router.get('/organisationslist', function (req, res, next) {
                   console.error("Error updating DemandesJoin table:", err);
                   throw err; // Rethrow the error
                 }
-                sql = "UPDATE Users SET type = 'recruteur', organisation = ? WHERE email = ?";
-                rows = db.query(sql, [siren,user], function (err, results) {
+                sql = "UPDATE Users SET type = 'recruteur' WHERE email = ?";
+                rows = db.query(sql, [user], function (err, results) {
                   if (err) {
                     console.error("Error updating Users table:", err);
                     throw err; // Rethrow the error

@@ -27,14 +27,6 @@ router.get('/devenirRecruteur', function (req, res, next) {
   res.render('devenirRecruteur');
 });
 
-/*
-/* GET users listing. */
-router.get('/userslist', function (req, res, next) {
-  result = userModel.readall(function (result) {
-    res.render('usersList', { title: 'List des utilisateurs', users: result });
-  });
-});
-
 /* GET recruiters listing. */
 router.get('/recruiterslist', function (req, res, next) {
   result = userModel.readallrecruiters(function (result) {
