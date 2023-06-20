@@ -8,18 +8,40 @@
             <li class="nav-item">
                 <a class="nav-link"  href="http://localhost:3000/users/"> Accueil</a> 
             </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="http://localhost:3000/users/offres">Offres d'emploi</a> <!-- accéder au page des offres-->
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="http://localhost:3000/users/mesCandidatures">Mes candidatures</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="http://localhost:3000/users/devenirAdmin" >Devenir Admin</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="http://localhost:3000/organisations/devenirRecruteur">Devenir Recruteur</a>
-            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Candidats
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="http://localhost:3000/users/offres">Offres d'emploi</a>
+                    <a class="dropdown-item" href="http://localhost:3000/users/mesCandidatures">Mes candidatures</a>
+                    <a class="dropdown-item" href="http://localhost:3000/users/devenirAdmin">Devenir Admin</a>
+                    <a class="dropdown-item" href="http://localhost:3000/organisations/devenirRecruteur">Devenir Recruteur</a>
+                  </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Recruteur
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href=" http://localhost:3000/recruteur/mesOffres"> Gestion de mes offres</a>
+                        <a class="dropdown-item" href="http://localhost:3000/organisations/recruteurorga">Gestion des recruteurs</a>
+                      </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Admin
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href=" http://localhost:3000/organisations/adminorga"> Gestion des organisations </a>
+                        <a class="dropdown-item" href="http://localhost:3000/admin/userslist"> Gestion des utilisateurs </a>
+                        <a class="dropdown-item" href="http://localhost:3000/admin/adminjoin"> Gestion des demandes Admin </a>
+                      </div>
+                </li>
+
             <li class="button">
                 <form id="Logout" action="/users/logout" method="POST">
                     <button type="submit" class="btn btn-danger">Déconnexion</button>
