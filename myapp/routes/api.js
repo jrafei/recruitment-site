@@ -8,7 +8,7 @@ router.get('/offres', function (req, res, next) {
         }); });
 
 router.get('/users', function (req, res, next) { 
-      result=usersModel.readall(function(result){
+      usersModel.readall(function(result){
       res.status(200).json(result);
       }); });
 

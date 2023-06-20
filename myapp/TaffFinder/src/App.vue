@@ -5,9 +5,9 @@ import UsersList from './components/UsersList.vue';
   <header>     
     <!-- ========== personalisez votre header ici ========== -->
   </header> 
-  <main>     
+     
   <UsersList />    
-  </main>
+  
 </template>  
 <style scoped> 
 /***** ajouter  votre style css ici *****/ 

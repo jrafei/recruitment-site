@@ -79,8 +79,9 @@ app.use('/inscription', inscriptionRouter);
 app.use('/recruteur',recruteurRouter);
 app.use('/upload', uploadRouter);
 app.use('/admin', adminRouter);
-app.use('/api', apiRouter); 
 app.use(cors());
+app.use('/api', apiRouter); 
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

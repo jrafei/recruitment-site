@@ -47,6 +47,7 @@ module.exports = {
             callback(results);
         });
     },
+    
     readOffrebyFiche: function(idfiche,callback){
         db.query("select of.id from Offres of, FichePoste fp where of.id_fiche = fp.id and fp.id=?"
         ,[idfiche], function (err, results) {

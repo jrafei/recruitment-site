@@ -31,19 +31,39 @@
 			<div class="col-md-3">
 					<div class="job-listings">
 						<% candidats.forEach((candidat)=> { %>
+						<!-- <form id="reponse" action="/recruteur/reponse" method="POST"> -->
 						<div class="job">
 							<h4><%= candidat.nom %></h4>
 							<p>Prénom : <%= candidat.prenom %></p>
 							<p>Date de Candidature : <%= candidat.DateCand %></p>
 							<p>Email : <%= candidat.email %></p>
 							<p>Téléphone : <%= candidat.telephone %></p>
+							<p>Statut : <%= candidat.statutCand %></p>
 							<!-- telecharger son cv-->
 							<p>CV :</p>
 							<li><a href="http://localhost:3000/upload/getfile?fichier_cible=<%= candidat.prenom %>-CV.jpg" target="_blank">CV de <%= candidat.prenom %></a></li>
 							<p>Lettre de motivation :</p>
 							<li><a href="http://localhost:3000/upload/getfile?fichier_cible=<%= candidat.prenom %>-LM.jpg" target="_blank">LM de <%= candidat.prenom%></a></li>
-							<a href="#" class="btn btn-primary">Accepter</a>
-							<a href="#" class="btn btn-primary">Decliner</a>
+							
+							<% if (candidat.statutCand === "en cours de traitement") { %>
+								<form id="reponse" action="/recruteur/reponse" method="POST">
+								  <div class="job">
+									<input type="hidden" name="emailCand" value="<%= candidat.email %>">
+									<input type="hidden" name="idOffre" value="<%= candidat.idOffre %>">
+							
+									<input type="submit" name="accepter" value="Accepter">
+									<input type="submit" name="refuser" value="Refuser">
+								  </div>
+								</form>
+							  <% } %>
+							<!--
+							<input type="hidden" name="emailCand" value="<%= candidat.email %>">
+							<input type="hidden" name="idOffre" value="<%= candidat.idOffre %>">
+
+							<input type="submit" name="accepter" value="Accepter">
+							<input type="submit" name="refuser" value="Refuser">
+							-->
+						</form>
 						</div>
 						<% }) %>
 					</div>

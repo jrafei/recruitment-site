@@ -3,12 +3,12 @@ import { ref } from 'vue';
 const listItems = ref([]); 
 
 async function getData() {
-    const res = await fetch("http://localhost:3000/api/users");
+    const res = await fetch("http://localhost:3001/api/users");
     const finalRes = await res.json();
     listItems.value = finalRes; 
     console.log(finalRes)
 }
-getData()
+getData();
 </script>
 <template>
     <div>
