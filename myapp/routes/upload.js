@@ -95,6 +95,9 @@ const addCandidature = (req,res,candToInsert,uploaded_file) => {
 });
 }
 
+
+
+
 /* GET download */
 router.get('/getfile', function(req, res, next) {
   try {

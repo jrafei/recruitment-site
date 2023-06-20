@@ -115,7 +115,7 @@ router.get('/organisationslist', function (req, res, next) {
 
         router.get('/recruteurorga', function (req, res, next) {
           result=orgaModel.readalluserswaitingforvalidation(req,function(result){
-            res.render('demandesJoin', { title: 'Liste des utilisateurs demandant à rejoindre votre organisation', demandes:result });
+            res.render('demandesJoin', { type: req.session.role ,title: 'Liste des utilisateurs demandant à rejoindre votre organisation', demandes:result });
           });});
 
 
