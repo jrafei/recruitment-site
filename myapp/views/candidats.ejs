@@ -6,7 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/stylesheets/style.css">
-
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -37,13 +36,25 @@
 							<p>Prénom : <%= candidat.prenom %></p>
 							<p>Date de Candidature : <%= candidat.DateCand %></p>
 							<p>Email : <%= candidat.email %></p>
+							<p>Statut : <%=candidat.statutCand %></p>
 							<p>Téléphone : <%= candidat.telephone %></p>
 							<!-- telecharger son cv-->
-							<p>CV :</p>
-							<li><a href="http://localhost:3000/upload/getfile?fichier_cible=<%= candidat.prenom %>-CV.jpg" target="_blank">CV de <%= candidat.prenom %></a></li>
-							<p>Lettre de motivation :</p>
-							<li><a href="http://localhost:3000/upload/getfile?fichier_cible=<%= candidat.prenom %>-LM.jpg" target="_blank">LM de <%= candidat.prenom%></a></li>
-							<input type="submit" name="accepter" value="Accepter">
+							<% if (candidat.cvExiste) { %>
+								<p>CV :</p>
+								<li><a href="http://localhost:3000/upload/getfile?fichier_cible=<%= candidat.prenom %>-CV.jpg" target="_blank">CV de <%= candidat.prenom %></a></li>
+							  <% } else { %>
+								<p>CV non disponible.</p>
+							  <% } %>
+							  <% if (candidat.lmExiste) { %>
+								<p>Lettre de motivation :</p>
+								<li><a href="http://localhost:3000/upload/getfile?fichier_cible=<%= candidat.prenom %>-LM.jpg" target="_blank">LM de <%= candidat.prenom %></a></li>
+							  <% } else { %>
+								<p>Lettre de motivation non disponible.</p>
+							  <% } %>
+							<% if (candidat.statutCand === 'en cours de traitement') { %>
+								<input type="submit" name="accepter" value="Accepter">
+								<input type="submit" name="refuser" value="Refuser">
+							<% } %>
 							<input type="hidden" name="emailCand" value="<%= candidat.email%>">
 							<input type="hidden" name="idOffre" value="<%= candidat.idOffre %>">
 							</form>
