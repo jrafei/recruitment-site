@@ -1,201 +1,263 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>TaffFinder - Offres</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/stylesheets/style.css">
-	<link rel="stylesheet" href="/stylesheets/style_filter.css">
-	<script>
-		// Get unique values for the desired columns
+    <title>TaffFinder - Offres</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/style_filter.css">
 
-function getUniqueValuesFromColumn() {
-    console.log("ici");
-    var unique_col_values_dict = {}
-  
-    allFilters = document.querySelectorAll(".table-filter")
-    allFilters.forEach((filter_i) => {
-        col_index = filter_i.parentElement.getAttribute("col-index");
-        // alert(col_index)
-        const rows = document.querySelectorAll("#emp-table > tbody > tr")
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
 
-        rows.forEach((row) => {
-            cell_value = row.querySelector("td:nth-child("+col_index+")").innerHTML;
-            // if the col index is already present in the dict
-            if (col_index in unique_col_values_dict) {
-  
-                // if the cell value is already present in the array
-                if (unique_col_values_dict[col_index].includes(cell_value)) {
-                    // alert(cell_value + " is already present in the array : " + unique_col_values_dict[col_index])
-  
-                } else {
-                    unique_col_values_dict[col_index].push(cell_value)
-                    // alert("Array after adding the cell value : " + unique_col_values_dict[col_index])
-  
+    <script>
+        // Get unique values for the desired columns
+        function getUniqueValuesFromColumn() {
+            console.log("ici");
+            var unique_col_values_dict = {}
+
+            allFilters = document.querySelectorAll(".table-filter")
+            allFilters.forEach((filter_i) => {
+                col_index = filter_i.parentElement.getAttribute("col-index");
+
+                const rows = document.querySelectorAll("#emp-table > tbody > tr")
+
+                rows.forEach((row) => {
+                    cell_value = row.querySelector("td:nth-child("+col_index+")").innerHTML;
+                    // if the col index is already present in the dict
+                    if (col_index in unique_col_values_dict) {
+                        // if the cell value is already present in the array
+                        if (unique_col_values_dict[col_index].includes(cell_value)) {
+                            // alert(cell_value + " is already present in the array : " + unique_col_values_dict[col_index])
+                        } else {
+                            unique_col_values_dict[col_index].push(cell_value)
+                            // alert("Array after adding the cell value : " + unique_col_values_dict[col_index])
+                        }
+                    } else {
+                        unique_col_values_dict[col_index] = new Array(cell_value)
+                    }
+                });
+
+            });
+
+            updateSelectOptions(unique_col_values_dict)
+
+        };
+
+        // Add <option> tags to the desired columns based on the unique values
+        function updateSelectOptions(unique_col_values_dict) {
+            allFilters = document.querySelectorAll(".table-filter")
+
+            allFilters.forEach((filter_i) => {
+                col_index = filter_i.parentElement.getAttribute('col-index')
+
+                unique_col_values_dict[col_index].forEach((i) => {
+                    filter_i.innerHTML = filter_i.innerHTML + `\n<option value="${i}">${i}</option>`
+                });
+
+            });
+        };
+
+        // Create filter_rows() function
+        // filter_value_dict {2 : Value selected, 4:value, 5: value}
+        function filter_rows() {
+            allFilters = document.querySelectorAll(".table-filter")
+            var filter_value_dict = {}
+
+            allFilters.forEach((filter_i) => {
+                col_index = filter_i.parentElement.getAttribute('col-index')
+
+                value = filter_i.value
+                if (value != "all") {
+                    filter_value_dict[col_index] = value;
                 }
-  
-  
-            } else {
-                unique_col_values_dict[col_index] = new Array(cell_value)
+            });
+
+            var col_cell_value_dict = {};
+
+            const rows = document.querySelectorAll("#emp-table tbody tr");
+            rows.forEach((row) => {
+                var display_row = true;
+
+                allFilters.forEach((filter_i) => {
+                    col_index = filter_i.parentElement.getAttribute('col-index')
+                    col_cell_value_dict[col_index] = row.querySelector("td:nth-child(" + col_index+ ")").innerHTML
+                })
+
+                for (var col_i in filter_value_dict) {
+                    filter_value = filter_value_dict[col_i]
+                    row_cell_value = col_cell_value_dict[col_i]
+
+                    if (row_cell_value.indexOf(filter_value) == -1 && filter_value != "all") {
+                        display_row = false;
+                        break;
+                    }
+                }
+
+                if (display_row == true) {
+                    row.style.display = "table-row"
+                } else {
+                    row.style.display = "none"
+                }
+
+            })
+
+        }
+
+        // Sorting function
+        function sort_table(col_index) {
+            const tbody = document.querySelector("#emp-table > tbody");
+            const rows = Array.from(tbody.querySelectorAll("tr"));
+
+            rows.sort((a, b) => {
+                const cell_a = a.querySelector(`td:nth-child(${col_index})`).textContent.trim();
+                const cell_b = b.querySelector(`td:nth-child(${col_index})`).textContent.trim();
+
+                if (col_index === 1) {
+                    // Sort by intitulé
+                    return cell_a.localeCompare(cell_b);
+                } else if (col_index === 4) {
+                    // Sort by date publication
+                    const date_a = new Date(cell_a);
+                    const date_b = new Date(cell_b);
+                    return date_a - date_b;
+                }
+
+                return 0;
+            });
+
+            const sortOrder = document.querySelector(`.table-sort:nth-child(${col_index})`).value;
+            if (sortOrder === "desc") {
+                rows.reverse();
             }
-        });
-  
-        
-    });
-  
-    updateSelectOptions(unique_col_values_dict)
-  
-  };
-  
-  // Add <option> tags to the desired columns based on the unique values
-  
-  function updateSelectOptions(unique_col_values_dict) {
-    allFilters = document.querySelectorAll(".table-filter")
-  
-    allFilters.forEach((filter_i) => {
-        col_index = filter_i.parentElement.getAttribute('col-index')
-  
-        unique_col_values_dict[col_index].forEach((i) => {
-            filter_i.innerHTML = filter_i.innerHTML + `\n<option value="${i}">${i}</option>`
-        });
-  
-    });
-  };
-  // Create filter_rows() function
-  
-  // filter_value_dict {2 : Value selected, 4:value, 5: value}
-  
-  function filter_rows() {
-    allFilters = document.querySelectorAll(".table-filter")
-    var filter_value_dict = {}
-  
-    allFilters.forEach((filter_i) => {
-        col_index = filter_i.parentElement.getAttribute('col-index')
-  
-        value = filter_i.value
-        if (value != "all") {
-            filter_value_dict[col_index] = value;
+
+            rows.forEach((row) => tbody.appendChild(row));
         }
-    });
-  
-    var col_cell_value_dict = {};
-  
-    const rows = document.querySelectorAll("#emp-table tbody tr");
-    rows.forEach((row) => {
-        var display_row = true;
-  
-        allFilters.forEach((filter_i) => {
-            col_index = filter_i.parentElement.getAttribute('col-index')
-            col_cell_value_dict[col_index] = row.querySelector("td:nth-child(" + col_index+ ")").innerHTML
-        })
-  
-        for (var col_i in filter_value_dict) {
-            filter_value = filter_value_dict[col_i]
-            row_cell_value = col_cell_value_dict[col_i]
-            
-            if (row_cell_value.indexOf(filter_value) == -1 && filter_value != "all") {
-                display_row = false;
-                break;
-            }
-  
-  
-        }
-  
-        if (display_row == true) {
-            row.style.display = "table-row"
-  
-        } else {
-            row.style.display = "none"
-  
-        }
-  
-    })
-  
-  }
-	</script>
+    </script>
 
 </head>
 <body>
-	<%- include('nav.ejs') %>
-	<div>
-	<div class="outer-wrapper">
-		<div class="table-wrapper">
-		<table id="emp-table">
-			<thead>
-				<th col-index = 1>Intitulé
-				<select class="table-filter" onchange="filter_rows()">
-					<option value="all"></option>
-				</select>
-				</th>
-				<th col-index = 2>Type
-				</th>
-				<th col-index = 3>Organisation
-					<select class="table-filter" onchange="filter_rows()">
-						<option value="all"></option>
-					</select>
-				</th>
-				<th col-index = 4>Publication 
-				</th>
-				<th col-index = 5>Rythme
-					<select class="table-filter" onchange="filter_rows()">
-						<option value="all"></option>
-					</select>
-				</th>
-				</th>
-				<th col-index = 6>Salaire 
-				</th>
-				</th>
-				<th col-index = 7>Date Validité
-				</th>
-				</th>
-				<th col-index = 8>Description
-				</th>
-				<th col-index = 9>Indication
-				</th>
-				<th col-index = 10>Responsable
-				</th>
-			</thead>
-			<tbody>
-				<% offres.forEach((offre)=> { %>
-						<tr>
-                    		<td><%= offre.intitulé %></td>
-                            <td><%= offre.typeMétier %></td>
-							<td><%= offre.nom %></td>
-							<td><%= offre.datePublication %></td>
-                            <td><%= offre.rythme %></td>
-                            <td><%= offre.salaire %></td>
-                            <td><%= offre.dateValidite %></td>
-                            <td><%= offre.description %></td>
-                            <td><%= offre.indication %></td>
-                            <td><%= offre.RespHierarchique %></td>
-							<td><a href="http://localhost:3000/upload?idFiche=<%=offre.id_fiche %>?intitule=<%=offre.intitulé %>?
-								" class="btn btn-primary">Postuler</a>
-							</td>
-						</tr>
+    <%- include('nav.ejs') %>
+    <div>
+    <div class="outer-wrapper">
+        <div class="table-wrapper">
+        <table id="emp-table">
+            <thead>
+                <th col-index="1">Intitulé
+                    <select class="table-sort" onchange="sort_table(1)">
+                        <option value="asc">Croissant</option>
+                        <option value="desc">Décroissant</option>
+                    </select> 
+                    <select class="table-filter" onchange="filter_rows()">
+                        <option value="all"></option>
+                    </select>
+                </th>
+                <th col-index="2">Type</th>
+                <th col-index="3">Organisation
+                    <select class="table-filter" onchange="filter_rows()">
+                        <option value="all"></option>
+                    </select>
+                </th>
+                <th col-index="4">Publication
+                    <!--
+                    <select class="table-sort" onchange="sort_table(4)">
+                        <option value="asc">Croissant</option>
+                        <option value="desc">Décroissant</option>
+                    </select>
+                -->
+                </th>
+                <th col-index="5">Rythme
+                    <select class="table-filter" onchange="filter_rows()">
+                        <option value="all"></option>
+                    </select>
+                </th>
+                <th col-index="6">Salaire</th>
+                <th col-index="7">Date Validité</th>
+                <th col-index="8">Description</th>
+                <th col-index="9">Indication</th>
+                <th col-index="10">Responsable</th>
+            </thead>
+            <tbody>
+                <% offres.forEach((offre) => { %>
+                    <tr>
+                        <td><%= offre.intitulé %></td>
+                        <td><%= offre.typeMétier %></td>
+                        <td><%= offre.nom %></td>
+                        <td><%= offre.datePublication %></td>
+                        <td><%= offre.rythme %></td>
+                        <td><%= offre.salaire %></td>
+                        <td><%= offre.dateValidite %></td>
+                        <td><%= offre.description %></td>
+                        <td><%= offre.indication %></td>
+                        <td><%= offre.RespHierarchique %></td>
+                        <td>
+                            <a href="http://localhost:3000/upload?idFiche=<%=offre.id_fiche %>?intitule=<%=offre.intitulé %>?" class="btn btn-primary">Postuler</a>
+                        </td>
+                    </tr>
                 <% }) %>
-			</tbody>
-			</table>
-			<script>
-			window.onload = () => {
-				console.log(document.querySelector("#emp-table > tbody > tr:nth-child(1) > td:nth-child(1) ").innerHTML);
-			};
-	
-			getUniqueValuesFromColumn()
-			
-			</script>
-		</div>
-	</div>
-	</div>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
 
-	<footer class="footer">
-		<div class="container">
-			<p>TaffFinder &copy; 2023. Tous droits réservés.</p>
-		</div>
-	</footer>
+    <footer class="footer">
+        <div class="container">
+            <p>TaffFinder &copy; 2023. Tous droits réservés.</p>
+        </div>
+    </footer>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	</body>
+    <script>
+        window.onload = () => {
+            console.log(document.querySelector("#emp-table > tbody > tr:nth-child(1) > td:nth-child(1) ").innerHTML);
+        };
+    
+        getUniqueValuesFromColumn();
+    
+        function sort_table(col_index) {
+            const tbody = document.querySelector("#emp-table > tbody");
+            const rows = Array.from(tbody.querySelectorAll("tr"));
+    
+            rows.sort((a, b) => {
+                const cell_a = a.querySelector(`td:nth-child(${col_index})`).textContent.trim();
+                const cell_b = b.querySelector(`td:nth-child(${col_index})`).textContent.trim();
+    
+                if (col_index === 1) {
+                    // Sort by intitulé
+                    return cell_a.localeCompare(cell_b);
+                } else if (col_index === 4) {
+                    // Sort by date publication
+                    const date_a = new Date(cell_a);
+                    const date_b = new Date(cell_b);
+                    return date_a - date_b;
+                }
+    
+                return 0;
+            });
+    
+            const sortOrder = document.querySelector(`.table-sort:nth-child(${col_index})`).value;
+            if (sortOrder === "desc") {
+                rows.reverse();
+            }
+    
+            rows.forEach((row) => tbody.appendChild(row));
+        }
+    </script>
+</div>
+</div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p>TaffFinder &copy; 2023. Tous droits réservés.</p>
+    </div>
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>
+
+    
+    
