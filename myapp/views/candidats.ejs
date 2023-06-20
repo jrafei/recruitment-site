@@ -32,6 +32,7 @@
 					<div class="job-listings">
 						<% candidats.forEach((candidat)=> { %>
 						<div class="job">
+							<form action="/recruteur/reponse" method="POST">
 							<h4><%= candidat.nom %></h4>
 							<p>Prénom : <%= candidat.prenom %></p>
 							<p>Date de Candidature : <%= candidat.DateCand %></p>
@@ -42,8 +43,10 @@
 							<li><a href="http://localhost:3000/upload/getfile?fichier_cible=<%= candidat.prenom %>-CV.jpg" target="_blank">CV de <%= candidat.prenom %></a></li>
 							<p>Lettre de motivation :</p>
 							<li><a href="http://localhost:3000/upload/getfile?fichier_cible=<%= candidat.prenom %>-LM.jpg" target="_blank">LM de <%= candidat.prenom%></a></li>
-							<a href="#" class="btn btn-primary">Accepter</a>
-							<a href="#" class="btn btn-primary">Decliner</a>
+							<input type="submit" name="accepter" value="Accepter">
+							<input type="hidden" name="emailCand" value="<%= candidat.email%>">
+							<input type="hidden" name="idOffre" value="<%= candidat.idOffre %>">
+							</form>
 						</div>
 						<% }) %>
 					</div>
