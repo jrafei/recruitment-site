@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 var offreModel = require('../model/offres.js');
 var usersModel = require('../model/users.js');
+
 router.get('/offres', function (req, res, next) { 
-        result=offreModel.readall(function(result){
+        result=offreModel.readOffreFiche(function(result){
               res.status(200).json(result);
         }); });
 

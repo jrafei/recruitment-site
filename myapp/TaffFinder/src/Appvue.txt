@@ -1,0 +1,31 @@
+<script setup> 
+import Offres from './components/Offres.vue'; 
+import NavBar from './components/NavBar.vue';
+</script>  
+<template>  
+ <div>
+  <header>     
+    <!-- ========== personalisez votre header ici ========== -->
+  <title>TaffFinder - Offres</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/stylesheets/style.css">
+	<link rel="stylesheet" href="/stylesheets/style_filter.css">
+  </header> 
+  <nav-bar></nav-bar> <!-- Utilisation du composant de navigation -->
+  
+  <Offres />    
+</div> 
+</template>  
+
+<style scoped>
+.container {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+</style>
