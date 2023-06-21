@@ -98,10 +98,9 @@ router.post('/setadminjoin', function (req, res, next) {
                 res.render('AdminJoin', { title: 'Liste des utilisateurs demandant à devenir Admin', users: result });
             });
         });
-
     }
 
-    if (req.body.accepter) {
+    if (req.body.rejeter) {
         var user = req.body.emailR
         sql = "UPDATE DemandesAdmin SET traitement = 1, reponse = 0 WHERE emailusers = ?";
         rows = db.query(sql, [user], function (err, results) {

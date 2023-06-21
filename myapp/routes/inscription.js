@@ -5,6 +5,7 @@ var userModel = require('../model/users.js');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 var db = require('../model/db.js');
+var pass = require('../pass.js');
 
 
 router.get('/', function(req, res, next) {
@@ -15,35 +16,40 @@ router.get('/', function(req, res, next) {
 
 router.get('/inscription', function (req, res, next) {
      res.render('inscription', { title: 'Formulaire inscription' });
-   });
+});
 
 
 /* POST Inscription Form */
 
 
 router.post('/inscriptionInfos', function (req, res, next) {
-  const email = req.body.email
+  const email = req.body.email;
   const nom = req.body.nom;
   const prenom = req.body.prenom;
   const pwd = req.body.password;
   const tel = req.body.tel;
-  const type = "candidat";
 
-  sql = "INSERT INTO Users (dateCreation, email, motdepasse, nom, prenom, telephone, type) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  pass.generateHash(pwd, function (hashed_pwd) {
+    console.log(hashed_pwd);
 
-   const timeElapsed = Date.now();
-   const dateCreation = new Date(timeElapsed);
-  
-  var userToInsert = [dateCreation, email, pwd, nom, prenom, tel, 'candidat'];
+    var sql = "INSERT INTO Users (dateCreation, email, motdepasse, nom, prenom, telephone, type) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-  rows = db.query(sql, userToInsert , function (err, results) {
-          if (err) throw err;
-          res.render('inscriptionInfos', { title: 'Formulaire Saisi', infos : test});
-      })   
+    const timeElapsed = Date.now();
+    const dateCreation = new Date(timeElapsed);
+
+    var userToInsert = [dateCreation, email, hashed_pwd, nom, prenom, tel, 'candidat'];
+
+    db.query(sql, userToInsert, function (err, results) {
+      if (err) {
+        console.error(err);
+        return res.status(500).send('Error inserting user into database');
+      }
+
+      console.log(results);
+      res.render('index', { title: 'Formulaire Saisi' });
+    });
   });
-  
-  router.get('/inscriptionInfos', function (req, res, next) {
-    res.render('inscriptionInfos', { title: 'Formulaire Saisi', infos : test});
 });
+  
 
   module.exports = router;

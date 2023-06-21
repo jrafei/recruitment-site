@@ -2,7 +2,10 @@ var express = require('express');
 var router = express.Router();
 var offresModel = require('../model/offres.js');
 var candModel = require('../model/candidature.js');
-var db = require('../model/db.js')
+
+var db = require('../model/db.js');
+const fs = require('fs');
+const path = require('path'); 
 
 /*
 var userModel = require('../model/offres.js');
@@ -17,23 +20,13 @@ router.get('/', function(req, res, next) {
   res.render('accueilRecruteur');
 });
 
-router.get('/mesOffres', function(req,res,next){
-    console.log(req.session.userid)
+
+const mesOffres = (req,res) =>{
     offresModel.readbyRecruteur(req.session.userid,function(result){
     res.render('mesOffres',{offres: result});
 })
-});
+};
 
-const CandidatsbyOffre = (req,res)=>{
-  candModel.readbyOffre(req.query.idOffre,function(result){
-    res.render('candidats',{candidats: result, idOffre : req.query.idOffre})
-  })
-}
-
-router.get('/candidats', function(req,res){
-  CandidatsbyOffre(req,res)
-})
-    
 
 router.post('/reponse', function(req, res) {
   var emailCand = req.body.emailCand;
@@ -72,5 +65,35 @@ router.post('/reponse', function(req, res) {
   }
 });
 
-  
+router.post('/reponse', function (req, res, next) {
+  const emailCand = req.body.emailCand;
+  const idOffre = req.body.idOffre;
+  tomodify = []
+  tomodify.push(emailCand)
+  tomodify.push(idOffre)
+
+  if (req.body.accepter) {
+        sql = "UPDATE Candidature SET statutCand = 'accepté' WHERE email = ? and idOffre = ?";
+        db.query(sql, tomodify, function (err, results) {
+            if (err) throw err;
+            sql = "UPDATE Candidature SET statutCand = 'refusé' WHERE email <> ? and idOffre = ?";
+            db.query(sql, tomodify, function (err, results) {
+              req.query.idOffre = idOffre
+              mesOffres(req,res)
+            })
+        }); 
+  }
+
+  if (req.body.refuser) {
+      sql = "UPDATE Candidature SET statutCand = 'refusé' WHERE email = ? and idOffre = ?";
+      rows = db.query(sql, tomodify, function (err, results) {
+          if (err) throw err;
+             req.query.idOffre = idOffre
+              mesCandidats(req,res)
+          ;
+        });
+  };  
+});
+
+
 module.exports = router;

@@ -1,0 +1,31 @@
+﻿Dans ce court rapport, nous allons procéder à l’analyse des failles potentielles de notre application web.
+
+- Vulnérabilité 1 - Injection SQL :
+
+Description : L’ensemble des requêtes étant construites par concaténation des paramètres entrés par l’utilisateur lors d’une insertion par exemple, un utilisateur mal intentionné pourrait alors contourner les vérifications à la connexion. Par exemple : la connexion, en indiquant xxx dans le login et yyy' or 'a'='a dans le password. 
+
+Faiblesses détectées : Nos requêtes étant concaténées comme explicité précédemment, il y a un risque potentiel d’injection.
+
+Stratégie et méthode de protection : Cette vulnérabilité ayant été considérée dès le début, l’ensemble des requêtes réalisés utilisent des prepared statements qui empêchent ce type d’injection.
+
+
+- Vulnérabilité 2 - Chiffrement des données sensibles :
+
+Description : Les mots de passes sont stockés en clair dans la base de donnée.
+
+Faiblesses détectées : Nos mots de passes sont stockés en clair dans la base de données.
+
+Méthode de protection : Stockage uniquement de l’empreinte du mot de passe généré par un algorithme fort de hachage. Également, sur le serveur de production, l’application devra obligatoirement être déployée e en https. En local, on peut mettre en place un certificat autosigné.
+
+Stratégie    : Cette vulnérabilité ayant été considérée à la fin, nous avons modifié l’inscription et la connexion à notre application afin d’utilisé les méthode de chiffrement de bcrypt. Les utilisateurs précédemment créés dont les mots de passe sont encore stockés en clair seront supprimés. 
+
+
+- Vulnérabilité 3- Script de redirection :
+
+Description : Script redirigeant sur un site externe à l’application.
+
+Faiblesses détectées : Aucune, aucun paramètre n’est utilisé à partir de l’url.
+
+Méthode de protection: La faille de redirection non contrôlée peut être corrigée en évitant de prendre en paramètre la page de login. A la place, la redirection est mise en dur dans le contrôleur
+
+Stratégie    : Cette vulnérabilité a été considérée à la fin, nous n’avons cependant pas eu à modifier quoi que ce soit du fait que toutes les redirection étaient	écrites en brutes dans le contrôleur. De plus, la fonction de déconnexion fait appel à une fonction n’utilisant pas de paramètres, mais la session initialisée à la connexion.
