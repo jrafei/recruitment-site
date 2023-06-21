@@ -30,6 +30,7 @@
 			<div class="col-md-3">
 					<div class="job-listings">
 						<% candidats.forEach((candidat)=> { %>
+						<!-- <form id="reponse" action="/recruteur/reponse" method="POST"> -->
 						<div class="job">
 							<form action="/recruteur/reponse" method="POST">
 							<h4><%= candidat.nom %></h4>
@@ -38,7 +39,9 @@
 							<p>Email : <%= candidat.email %></p>
 							<p>Statut : <%=candidat.statutCand %></p>
 							<p>Téléphone : <%= candidat.telephone %></p>
+							<p>Statut : <%= candidat.statutCand %></p>
 							<!-- telecharger son cv-->
+
 							<% if (candidat.cvExiste) { %>
 								<p>CV :</p>
 								<li><a href="http://localhost:3000/upload/getfile?fichier_cible=<%= candidat.prenom %>-CV.jpg" target="_blank">CV de <%= candidat.prenom %></a></li>

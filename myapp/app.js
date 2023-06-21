@@ -18,7 +18,8 @@ var inscriptionRouter = require('./routes/inscription');
 var uploadRouter = require('./routes/upload');
 var recruteurRouter = require('./routes/recruteur');
 var adminRouter = require('./routes/admin');
-
+var apiRouter = require('./routes/api');
+var cors=require('cors'); 
 
 var app = express();
 
@@ -35,10 +36,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 
+
 app.use('/', indexRouter);
 
 
-// check user
+/* check user
 app.all("*", function (req, res, next) {
   const nonSecurePaths = ["/inscription", "/","/inscription/inscriptionInfos"];
   const adminPaths = ["/admin/userslist","/organisations/adminorga","/organisations/setadminorga","/admin/adminjoin"]; //list des urls admin
@@ -64,7 +66,7 @@ app.all("*", function (req, res, next) {
     else res.redirect("/");
   }
 });
-
+*/
 app.use('/users', usersRouter);
 app.use('/users/offres', offreRouter);
 app.use('/candidatures', candidatureRouter);
@@ -77,7 +79,8 @@ app.use('/inscription', inscriptionRouter);
 app.use('/recruteur',recruteurRouter);
 app.use('/upload', uploadRouter);
 app.use('/admin', adminRouter);
-
+app.use(cors());
+app.use('/api', apiRouter); 
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -94,5 +97,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;

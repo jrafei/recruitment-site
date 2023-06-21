@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var offresModel = require('../model/offres.js');
 var candModel = require('../model/candidature.js');
+
 var db = require('../model/db.js');
 const fs = require('fs');
 const path = require('path'); 
@@ -26,40 +27,43 @@ const mesOffres = (req,res) =>{
 })
 };
 
- 
-const mesCandidats=(req,res) => {
-    candModel.readbyOffre(req.query.idOffre,function(result){
-        result.forEach((candidat) => {
-        candidat.cvExiste = fichierExiste(`${candidat.prenom}-CV.jpg`);
-        candidat.lmExiste = fichierExiste(`${candidat.prenom}-LM.jpg`);
-        console.log(candidat.cvExiste)
-        console.log(candidat.lmExiste)
+
+router.post('/reponse', function(req, res) {
+  var emailCand = req.body.emailCand;
+  var idOffre = req.body.idOffre;
+    var tomodif = []
+    tomodif.push(emailCand)
+    tomodif.push(idOffre)
+  
+  if (req.body.accepter) {
+    var sql = "UPDATE Candidature SET statutCand = 'accepté' WHERE email = ? AND idOffre = ?"
+    console.log(tomodif)
+    console.log(sql)
+    db.query(sql, tomodif, function (err, results) {
+      sql = "UPDATE Candidature SET statutCand = 'refusé' WHERE email <> ? AND idOffre = ?"
+      db.query(sql, tomodif, function (err, results) {
+        if (err) throw err;
+        sql = "UPDATE Offres SET etat = 'expirée' where id = ?"
+        db.query(sql, [idOffre], function (err, results) {
+          req.query.idOffre = idOffre;
+          CandidatsbyOffre(req,res)
       });
-    res.render('candidats',{candidats: result})
-  })
-}
-
-router.get('/mesOffres', function(req,res,next){
-    mesOffres(req,res)
-});
-
-// Fonction de vérification de l'existence du fichier 
-function fichierExiste(nomFichier) {
-  try {
-    const cheminFichier = path.join(__dirname, '../mesfichiers', nomFichier);
-    console.log(cheminFichier)
-    fs.accessSync(cheminFichier, fs.constants.F_OK);
-    return true;
-  } catch (err) {
-    return false;
+      })
+    })
   }
-}
 
-router.get('/candidats', function(req,res){
-    mesCandidats(req,res)
-})
-
-
+  if (req.body.refuser){
+    var sql = "UPDATE Candidature SET statutCand = 'refusé' WHERE email = ? AND idOffre = ?"
+    console.log(tomodif)
+    console.log(sql)
+    db.query(sql, tomodif, function (err, results) {
+      db.query(sql, tomodif, function (err, results) {
+          req.query.idOffre = idOffre;
+          CandidatsbyOffre(req,res)
+      });
+      })
+  }
+});
 
 router.post('/reponse', function (req, res, next) {
   const emailCand = req.body.emailCand;

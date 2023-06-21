@@ -18,6 +18,14 @@ module.exports = {
         });
     },
 
+    readOffreSalaire : function(){
+        db.query("select fp.intitule , fp.salaire from  FichePoste fp", lieu, function
+            (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+
     //affiche toutes les offres d'une orga
     readbyLieu : function (nomOrga, callback) {
         db.query("select of.* from Offres of join Users user on of.recruteur = user.email join Organisation org on user.organisation = org.SIREN where org.nom= ?", nomOrga, function
@@ -47,6 +55,7 @@ module.exports = {
             callback(results);
         });
     },
+    
     readOffrebyFiche: function(idfiche,callback){
         db.query("select of.id from Offres of, FichePoste fp where of.id_fiche = fp.id and fp.id=?"
         ,[idfiche], function (err, results) {
