@@ -5,7 +5,7 @@ Notre projet utilise la structure MVC d'Express avec les différentes vues, rout
 pass et session permettant respectivement de gérer le hashage des mots de passe en base et la gestion des sessions.
 Les routes ont été pensé de selon leurs fonction et/ou type d'utilisateur qui vont y accéder. 
 
-Les requêtes POST dans la base ont été faite dans les routes à cause d'erreur undifined lors du passage des paramètres dans les fonctions du model.
+Les requêtes POST dans la base ont été faite dans les routes à cause d'erreur undefined lors du passage des paramètres dans les fonctions du model.
 Il est important de souligner que ce n'est pas une bonne pratique et que cela n'a pas été corrigé par manque de temps afin d'assurer le
 développement de l'ensemble des fonctionnalités de l'application.
 
